@@ -5,6 +5,7 @@
   
 	export default {
 		onLaunch: function() {
+			console.log(111)
 			uni.getSystemInfo({
 			  success: function(e) {
 			    // #ifndef H5
@@ -75,12 +76,9 @@
 			}
       // #endif
 		},
-		onShow: function() {
-			// console.log('App Show')
-		},
 		onHide: function() {
 			// console.log('App Hide')
-		}
+		},
 	}
 </script>
 
