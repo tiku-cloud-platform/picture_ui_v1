@@ -25,7 +25,7 @@
     <!-- 页面内容 -->
 	<view class="slideshow">
 		<template v-for="(item, index) in swiperList">
-			<view class="slideshow-image" @change="imageChange(index)" @click="imagePreview(index)" :style="'background-image:url('+ item.url + item.path + ');'"></view>
+			<view class="slideshow-image"  @click="imagePreview(index)" :style="'background-image:url('+ item.url + item.path + ');'"></view>
 		</template>	</view>
 	<!-- <swiper class="card-swiper" :circular="true"
       :autoplay="true" duration="500" interval="12000" @change="cardSwiper" > 
@@ -51,7 +51,7 @@
         </view>
         <view class="">收藏</view>
       </view>
-      <view class="action" @click="downloadImage">
+      <view class="action" @click="downloadImageHandle">
         <view class="bar-icon">
           <view class="tn-icon-download">
           </view>
@@ -158,21 +158,29 @@
           url: e,
         })
       },
-			imageChange(index) {
-				console.log("图片切换index", index)
-			},
 			imagePreview(index) {
-				// this.$func.showToast('暂不支持预览')
-				// let imageArray = [];
-				// for(let i = 0; i < this.swiperList.length; i++) {
-				// 	imageArray.push(this.swiperList[i].url + this.swiperList[i].path)
-				// }
-				// console.log("数组长度", imageArray)
-				// uni.previewImage({
-				// 	urls: imageArray
-				// })
 				this.cardCur = index
-				this.downloadImage()
+				this.downloadImageHandle()
+			},
+			downloadImageHandle() {
+				let _that = this
+				let cache = uni.getStorageSync('downloadimage')
+				if (!cache) {
+					uni.showModal({
+						title: '下载提示',
+						content: '默认下载第一张，下载指定图片，请点击对应的图片',
+						confirmText: '知道了',
+						cancelText: '关闭',
+						success(res) {
+							if (res.confirm) {// 点击确认
+								uni.setStorageSync('downloadimage', 1)
+							}
+							_that.downloadImage()
+						}
+					})
+				} else {
+					this.downloadImage()
+				}
 			},
       downloadImage() {
 				imageDownLoad({image_uid: this.swiperList[this.cardCur].uid}).then(res => {
