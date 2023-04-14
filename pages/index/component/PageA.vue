@@ -14,9 +14,9 @@
     
     <view class="" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
       
-   <!--   <view class="tn-color-gray--dark" style="margin: 20rpx 30rpx 0 30rpx;border-radius: 100rpx;padding-left: 6rpx;background-color: rgba(248, 247, 248, 0.9);" @click="tn('/pageA/search/search')">
+     <view class="tn-color-gray--dark" style="margin: 20rpx 30rpx 0 30rpx;border-radius: 100rpx;padding-left: 6rpx;background-color: rgba(248, 247, 248, 0.9);" @click="tn('/pageA/search/search')">
         <tn-notice-bar :list="searlist" mode="vertical" leftIconName="search" :duration="6000"></tn-notice-bar>
-      </view>  -->
+      </view> 
       
       <swiper class="card-swiper" :circular="true"
         :autoplay="true" duration="500" interval="8000" @change="cardSwiper"> 

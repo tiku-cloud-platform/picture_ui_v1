@@ -5,7 +5,6 @@
   
 	export default {
 		onLaunch: function() {
-			console.log(111)
 			uni.getSystemInfo({
 			  success: function(e) {
 			    // #ifndef H5
