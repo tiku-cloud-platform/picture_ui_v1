@@ -65,6 +65,7 @@ http.interceptors.response.use((response) => {
 			duration: 3000,
 		})
 	} else {
+		console.log(response)
 		uni.showToast({
 			title: "请求异常 刷新重试",
 			icon: "none",

@@ -20,6 +20,12 @@
           	"navigationBarTitleText": "搜索"
           }
         },
+				{
+				  "path": "image/category",
+				  "style": {
+				  	"navigationBarTitleText": "分类"
+				  }
+				},
         {
           "path": "set/set",
           "style": {

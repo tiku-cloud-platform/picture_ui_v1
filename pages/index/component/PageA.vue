@@ -14,9 +14,9 @@
     
     <view class="" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
       
-   <!--   <view class="tn-color-gray--dark" style="margin: 20rpx 30rpx 0 30rpx;border-radius: 100rpx;padding-left: 6rpx;background-color: rgba(248, 247, 248, 0.9);" @click="tn('/pageA/search/search')">
+     <view class="tn-color-gray--dark" style="margin: 20rpx 30rpx 0 30rpx;border-radius: 100rpx;padding-left: 6rpx;background-color: rgba(248, 247, 248, 0.9);" @click="tn('/pageA/search/search')">
         <tn-notice-bar :list="searlist" mode="vertical" leftIconName="search" :duration="6000"></tn-notice-bar>
-      </view>  -->
+      </view> 
       
       <swiper class="card-swiper" :circular="true"
         :autoplay="true" duration="500" interval="8000" @change="cardSwiper"> 
@@ -36,8 +36,6 @@
           </block>
       </view>
     </view>
-    
-    
     <!-- 方式5，图片形式，安卓手机 start-->
     <view v-if="isAndroid" class="tn-flex tn-flex-wrap tn-padding-top home-shadow" style="padding-top: 0rpx;">
      <block v-for="(item, index) in menuList" :key="index">
@@ -191,7 +189,8 @@
 
 <script>
 	import { bannerList } from '@/utils/api/banner'
-	import { seriesList, imageList } from '@/utils/api/image'
+	import { imageList } from '@/utils/api/image'
+	import { menuList } from '@/utils/api/menu.js'
   export default {
     name: 'PagesA',
     data(){
@@ -256,9 +255,17 @@
 				})
 			},
 			menuTn(url, index) {
-				uni.navigateTo({
-					url:url + "?params=" + JSON.stringify(this.menuList[index])
-				})
+				if (this.menuList[index].state == 1) {
+					if (this.menuList[index].navigate == 'gif') {
+						this.$parent.changeTabbar(1)
+						return
+					}
+					uni.navigateTo({
+						url: this.menuList[index].navigate
+					})
+					return
+				}
+				this.$func.showToast('努力开发中')
 			},
 			getBannerList() {
 				bannerList().then(res => {
@@ -266,11 +273,10 @@
 				})
 			},
 			getMenuList() {
-				seriesList().then(res => {
+				menuList().then(res => {
 					this.menuList = res.items
 				})
 			},
-      // cardSwiper
       cardSwiper(e) {
         this.cardCur = e.detail.current
       },
@@ -290,7 +296,6 @@
       		url: e,
       	});
       },
-     
       handleWaterFallFinish() {
 				this.getImageList()
         this.loadStatus = 'loadmore'

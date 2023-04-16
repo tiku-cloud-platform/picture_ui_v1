@@ -13,17 +13,21 @@
       <view class="icon15__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur button-3" @tap="showLandscape">
         <view class="tn-icon-level"></view>
       </view>
-      <!-- <view class="icon15__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur button-2" @click="tn('/pageA/author/author')">
+      <view class="icon15__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur button-2" @click="tn('/pageA/author/author')">
         <view class="tn-icon-my"></view>
-      </view> -->
-      <!-- <view class="icon15__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur button-1" @click="tn('/pageB/chat/chat')">
+      </view>
+      <view class="icon15__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur button-1" @click="tn('/pageB/chat/chat')">
         <view class="tn-icon-comment"></view>
-      </view> -->
+      </view>
     </view>  
     
     
     <!-- 页面内容 -->
-    <swiper class="card-swiper" :circular="true"
+	<view class="slideshow">
+		<template v-for="(item, index) in swiperList">
+			<view class="slideshow-image"  @click="imagePreview(index)" :style="'background-image:url('+ item.url + item.path + ');'"></view>
+		</template>	</view>
+	<!-- <swiper class="card-swiper" :circular="true"
       :autoplay="true" duration="500" interval="12000" @change="cardSwiper" > 
       <swiper-item v-for="(item,index) in swiperList" :key="index" :class="cardCur==index?'cur':''">
         <view class="swiper-item image-banner" @click="$func.imagePreview(item.url + item.path)" :style="'background-image:url('+ item.url + item.path + ');background-size: cover;border-radius: 15rpx;background-repeat: no-repeat;'">
@@ -34,7 +38,7 @@
         <block v-for="(item,index) in swiperList" :key="index">
             <view class="spot" :class="cardCur==index?'active':''"></view>
         </block>
-    </view>
+    </view> -->
     
     
     <!-- 底部tabbar start-->
@@ -47,7 +51,7 @@
         </view>
         <view class="">收藏</view>
       </view>
-      <view class="action" @click="downloadImage">
+      <view class="action" @click="downloadImageHandle">
         <view class="bar-icon">
           <view class="tn-icon-download">
           </view>
@@ -86,7 +90,7 @@
             <view class="">
               <view class="logo-pic tn-shadow">
                 <view class="logo-image">
-									<view class="tn-shadow-blur" :style="'background-image:url('+ swiperList[0].author.qr_url +');width: 100rpx;height: 100rpx;background-size: cover;'">
+					<view class="tn-shadow-blur" :style="'background-image:url('+ swiperList[0].author.qr_url +');width: 100rpx;height: 100rpx;background-size: cover;'">
                   </view>
                 </view>
               </view>
@@ -99,9 +103,9 @@
                   <text class="tn-padding-left-sm tn-padding-right-xs">水瓶座</text>
                   <text class="tn-icon-con-virgo"></text>
                 </view>
-                <!-- <view class="justify-content-item tn-round tn-text-xs tn-bg-orangered--light tn-color-orangered" style="padding: 5rpx 15rpx;">
+                <view class="justify-content-item tn-round tn-text-xs tn-bg-orangered--light tn-color-orangered" style="padding: 5rpx 15rpx;">
                   <text class="tn-icon-warning-fill tn-padding-right-xs"></text> 举报
-                </view> -->
+                </view>
               </view>
               <view class="tn-padding-top-xs">
                 <view class="">
@@ -127,6 +131,7 @@
 <script>
   import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
 	import { imageItemList, imageDownLoad } from '@/utils/api/image'
+	
   export default {
     name: 'TemplateDetails',
     mixins: [template_page_mixin],
@@ -154,6 +159,30 @@
           url: e,
         })
       },
+			imagePreview(index) {
+				this.cardCur = index
+				this.downloadImageHandle()
+			},
+			downloadImageHandle() {
+				let _that = this
+				let cache = uni.getStorageSync('downloadimage')
+				if (!cache) {
+					uni.showModal({
+						title: '下载提示',
+						content: '默认下载第一张，下载指定图片，请点击对应的图片',
+						confirmText: '知道了',
+						cancelText: '关闭',
+						success(res) {
+							if (res.confirm) {// 点击确认
+								uni.setStorageSync('downloadimage', 1)
+							}
+							_that.downloadImage()
+						}
+					})
+				} else {
+					this.downloadImage()
+				}
+			},
       downloadImage() {
 				imageDownLoad({image_uid: this.swiperList[this.cardCur].uid}).then(res => {
 					if (res.code == 1) {
@@ -181,7 +210,7 @@
         this.show1 = false
       },
     }
-  }
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -306,6 +335,224 @@
     border-radius: 100px;
   }  
   
+    
+
+  
+  /* 相册 start*/
+  .slideshow {
+    top: 0;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .slideshow-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: no-repeat 50% 50%;
+    background-size: cover;
+    -webkit-animation-name: kenburns;
+            animation-name: kenburns;
+    -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+    -webkit-animation-duration: 16s;
+            animation-duration: 16s;
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  .slideshow-image:nth-child(1) {
+    -webkit-animation-name: kenburns-1;
+            animation-name: kenburns-1;
+    z-index: 3;
+  }
+  .slideshow-image:nth-child(2) {
+    -webkit-animation-name: kenburns-2;
+            animation-name: kenburns-2;
+    z-index: 2;
+  }
+  .slideshow-image:nth-child(3) {
+    -webkit-animation-name: kenburns-3;
+            animation-name: kenburns-3;
+    z-index: 1;
+  }
+  .slideshow-image:nth-child(4) {
+    -webkit-animation-name: kenburns-4;
+            animation-name: kenburns-4;
+    z-index: 0;
+  }
+  
+  @-webkit-keyframes kenburns-1 {
+    0% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    1.5625% {
+      opacity: 1;
+    }
+    23.4375% {
+      opacity: 1;
+    }
+    26.5625% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.2);
+    }
+    98.4375% {
+      opacity: 0;
+      transform: scale(1.2117647059);
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes kenburns-1 {
+    0% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    1.5625% {
+      opacity: 1;
+    }
+    23.4375% {
+      opacity: 1;
+    }
+    26.5625% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.2);
+    }
+    98.4375% {
+      opacity: 0;
+      transform: scale(1.2117647059);
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes kenburns-2 {
+    23.4375% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    26.5625% {
+      opacity: 1;
+    }
+    48.4375% {
+      opacity: 1;
+    }
+    51.5625% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.2);
+    }
+  }
+  @keyframes kenburns-2 {
+    23.4375% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    26.5625% {
+      opacity: 1;
+    }
+    48.4375% {
+      opacity: 1;
+    }
+    51.5625% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.2);
+    }
+  }
+  @-webkit-keyframes kenburns-3 {
+    48.4375% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    51.5625% {
+      opacity: 1;
+    }
+    73.4375% {
+      opacity: 1;
+    }
+    76.5625% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.2);
+    }
+  }
+  @keyframes kenburns-3 {
+    48.4375% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    51.5625% {
+      opacity: 1;
+    }
+    73.4375% {
+      opacity: 1;
+    }
+    76.5625% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.2);
+    }
+  }
+  @-webkit-keyframes kenburns-4 {
+    73.4375% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    76.5625% {
+      opacity: 1;
+    }
+    98.4375% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+  @keyframes kenburns-4 {
+    73.4375% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    76.5625% {
+      opacity: 1;
+    }
+    98.4375% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+    /* 相册 end*/
     
   /* 用户头像 start */
   .logo-image {
