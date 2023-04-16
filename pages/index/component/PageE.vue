@@ -32,7 +32,7 @@
 						<view class="tn-padding-right">
 							<view class="tn-padding-right tn-padding-left-sm">
 								<text class="tn-color-wallpaper tn-text-xl tn-text-bold">{{ userInfo.nickname}}</text>
-								<text class=" tn-round tn-text-xs tn-bg-red tn-color-white tn-margin-left-sm" style="padding: 10rpx 20rpx;">未实名</text>
+								<!-- <text class=" tn-round tn-text-xs tn-bg-red tn-color-white tn-margin-left-sm" style="padding: 10rpx 20rpx;">未实名</text> -->
 							</view>
 							<view class="tn-padding-right tn-padding-top-xs tn-padding-left-sm tn-text-ellipsis">
 								<text class="tn-color-gray">{{userInfo.remark}}</text>

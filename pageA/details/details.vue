@@ -131,6 +131,7 @@
 <script>
   import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
 	import { imageItemList, imageDownLoad } from '@/utils/api/image'
+	
   export default {
     name: 'TemplateDetails',
     mixins: [template_page_mixin],
@@ -209,7 +210,7 @@
         this.show1 = false
       },
     }
-  }
+	}
 </script>
 
 <style lang="scss" scoped>

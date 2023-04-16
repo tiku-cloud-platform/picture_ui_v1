@@ -36,8 +36,6 @@
           </block>
       </view>
     </view>
-    
-    
     <!-- 方式5，图片形式，安卓手机 start-->
     <view v-if="isAndroid" class="tn-flex tn-flex-wrap tn-padding-top home-shadow" style="padding-top: 0rpx;">
      <block v-for="(item, index) in menuList" :key="index">
@@ -191,7 +189,8 @@
 
 <script>
 	import { bannerList } from '@/utils/api/banner'
-	import { seriesList, imageList } from '@/utils/api/image'
+	import { imageList } from '@/utils/api/image'
+	import { menuList } from '@/utils/api/menu.js'
   export default {
     name: 'PagesA',
     data(){
@@ -256,9 +255,17 @@
 				})
 			},
 			menuTn(url, index) {
-				uni.navigateTo({
-					url:url + "?params=" + JSON.stringify(this.menuList[index])
-				})
+				if (this.menuList[index].state == 1) {
+					if (this.menuList[index].navigate == 'gif') {
+						this.$parent.changeTabbar(1)
+						return
+					}
+					uni.navigateTo({
+						url: this.menuList[index].navigate
+					})
+					return
+				}
+				this.$func.showToast('努力开发中')
 			},
 			getBannerList() {
 				bannerList().then(res => {
@@ -266,11 +273,10 @@
 				})
 			},
 			getMenuList() {
-				seriesList().then(res => {
+				menuList().then(res => {
 					this.menuList = res.items
 				})
 			},
-      // cardSwiper
       cardSwiper(e) {
         this.cardCur = e.detail.current
       },
@@ -290,7 +296,6 @@
       		url: e,
       	});
       },
-     
       handleWaterFallFinish() {
 				this.getImageList()
         this.loadStatus = 'loadmore'

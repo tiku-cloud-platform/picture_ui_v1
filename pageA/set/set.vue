@@ -180,6 +180,7 @@
   import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
   import WxUserInfoModal from '@/uni_modules/tuniaoui-wx-user-info/components/tuniaoui-wx-user-info/tuniaoui-wx-user-info.vue'
 	import { userInfo, updateUserInfo } from "@/utils/api/user"
+	import { uploadImage } from "@/utils/api/file"
   export default {
     components: { WxUserInfoModal },
     name: 'TemplateSet',
@@ -299,15 +300,24 @@
         this.showAuthorizationModal = true
       },
             
-      // 获取到的用户信息
+      // 上传用户头像
       updatedUserInfoEvent(info) {
-        console.log('获取到的用户信息', info)
 				this.userInfo.nickname = info.nickname
 				this.userInfo.avatar_url = info.avatar_url
+				uni.showLoading({
+					title: '头像上传中',
+					mask: true,
+				})
+				uploadImage(info.avatar_url).then(res => {
+					if (res.code == 100) {
+						this.userInfo.avatar_url = res.data.url
+						this.showAuthorizationModal = false
+					} else {
+						this.$func.showToast('头像上传失败')
+					}
+					uni.hideLoading()
+				})
       },      
-      
-      
-        
     }
   }
 </script>
