@@ -13,7 +13,7 @@
     
     <view class="" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
       
-      <view class="tn-text-justify">
+      <view class="tn-text-justify" style="display: none;">
         
         <view class="tn-margin">
           <view class="tn-flex tn-flex-row-between tn-flex-col-center">
@@ -481,7 +481,7 @@
     </view>
     
     
-    <view class="tabbar footerfixed tn-bg-white">
+    <view class="tabbar footerfixed tn-bg-white" style="display: none;">
       <view class="tn-flex tn-flex-row-between tn-flex-col-center">
         <view class="justify-content-item tn-margin-top">
           <view class="tn-flex tn-flex-row-center tn-flex-col-center">

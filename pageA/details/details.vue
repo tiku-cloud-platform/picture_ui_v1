@@ -103,9 +103,9 @@
                   <text class="tn-padding-left-sm tn-padding-right-xs">水瓶座</text>
                   <text class="tn-icon-con-virgo"></text>
                 </view>
-                <view class="justify-content-item tn-round tn-text-xs tn-bg-orangered--light tn-color-orangered" style="padding: 5rpx 15rpx;">
+                <!-- <view class="justify-content-item tn-round tn-text-xs tn-bg-orangered--light tn-color-orangered" style="padding: 5rpx 15rpx;">
                   <text class="tn-icon-warning-fill tn-padding-right-xs"></text> 举报
-                </view>
+                </view> -->
               </view>
               <view class="tn-padding-top-xs">
                 <view class="">
