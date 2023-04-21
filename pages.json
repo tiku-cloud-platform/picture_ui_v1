@@ -27,6 +27,12 @@
 				  }
 				},
 				{
+				  "path": "site/list",
+				  "style": {
+				  	"navigationBarTitleText": "站点导航"
+				  }
+				},
+				{
 				  "path": "image/category",
 				  "style": {
 				  	"navigationBarTitleText": "分类"
@@ -113,18 +119,6 @@
           "path": "wallpaper/wallpaper",
           "style": {
           	"navigationBarTitleText": "壁纸"
-          }
-        },
-        {
-          "path": "chat/chat",
-          "style": {
-          	"navigationBarTitleText": "聊天"
-          }
-        },
-        {
-          "path": "chat/chatGPT",
-          "style": {
-          	"navigationBarTitleText": "智能助手"
           }
         },
         {

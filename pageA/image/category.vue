@@ -8,7 +8,7 @@
       </view>
     </tn-nav-bar>
 		<view class="top-backgroup">
-			<image src='https://tnuiimage.tnkjapp.com/index_bg/components_new.jpg' mode='widthFix' class='backgroud-image'>
+			<image src='http://qiniucloud.qqdeveloper.com//2e70a012f23807e8fdd77d50e27e3978.jpg' mode='widthFix' class='backgroud-image'>
 			</image>
 		</view>
 

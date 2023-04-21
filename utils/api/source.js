@@ -7,3 +7,19 @@ export function categoryList(params) {
 		return res.data
 	})
 }
+
+export function itemList(params) {
+	return request.get("source/item", {
+		params: params,
+	}).then(res => {
+		return res.data
+	})
+}
+
+export function item(params) {
+	return request.get("source/detail", {
+		params: params,
+	}).then(res => {
+		return res.data
+	})
+}

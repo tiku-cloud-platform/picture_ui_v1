@@ -8,7 +8,7 @@
       </view>
     </tn-nav-bar>
 		<view class="top-backgroup">
-			<image src='https://tnuiimage.tnkjapp.com/index_bg/components_new.jpg' mode='widthFix' class='backgroud-image'>
+			<image src='http://qiniucloud.qqdeveloper.com//2e70a012f23807e8fdd77d50e27e3978.jpg' mode='widthFix' class='backgroud-image'>
 			</image>
 		</view>
 
@@ -18,7 +18,7 @@
 			</view>
 			<view class='nav-list'>
 				<block v-for="(content_item, content_index) in item.children" :key="content_index">
-					<view hover-class='none' @click="clickMenu(content_index)"
+					<view hover-class='none' @click="clickMenu(content_item)"
 						class="nav-list-item tn-shadow-blur tn-cool-bg-image tn-flex tn-flex-col-center tn-flex-row-between" :class="[
               getRandomCoolBg(content_index)
             ]">
@@ -57,9 +57,9 @@
 			this.categoryList()
 		},
 		methods: {
-			clickMenu(index) {
+			clickMenu(obj) {
 				uni.navigateTo({
-					url: '/pageB/wallpaper/wallpaper?params=' + JSON.stringify(this.navList[0].list[index])
+					url: '/pageA/site/list?params=' + JSON.stringify(obj)
 				})
 			},
 			categoryList() {
