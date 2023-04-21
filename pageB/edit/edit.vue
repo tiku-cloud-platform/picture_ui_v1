@@ -11,7 +11,7 @@
 		
     <view class="tn-safe-area-inset-bottom" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
       
-      <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top tn-margin">
+      <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top tn-margin" style="display: none;">
         <view class="tn-flex justify-content-item">
           <view class="tn-bg-black tn-color-white tn-text-center" style="border-radius: 100rpx;margin-right: 8rpx;width: 45rpx;height: 45rpx;line-height: 45rpx;">
             <text class="tn-icon-topics" style="font-size: 30rpx;"></text>
@@ -27,11 +27,11 @@
       <!-- <view class="tn-margin tn-bg-gray--light" style="border-radius: 10rpx;padding: 20rpx 30rpx;">
       	<input placeholder="写下一句简短的标题" name="input" placeholder-style="color:#AAAAAA" ></input>
       </view> -->
-      <view class="tn-margin tn-bg-gray--light tn-padding" style="border-radius: 10rpx;">
+      <view class="tn-margin tn-bg-gray--light tn-padding" style="border-radius: 10rpx;display: none;">
         <textarea maxlength="500" placeholder="说点什么 , 万一火了呢" placeholder-style="color:#AAAAAA" style="height: 160rpx;"></textarea>
       </view>
       
-      <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-xl tn-margin">
+      <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-xl tn-margin" style="display: none;">
         <view class="tn-flex justify-content-item">
           <view class="tn-bg-black tn-color-white tn-text-center" style="border-radius: 100rpx;margin-right: 8rpx;width: 45rpx;height: 45rpx;line-height: 45rpx;">
             <text class="tn-icon-image" style="font-size: 30rpx;"></text>
@@ -47,7 +47,7 @@
       
       
       
-      <view class="tn-margin-left tn-padding-top-xs">
+      <view class="tn-margin-left tn-padding-top-xs" style="display: none;">
         <tn-image-upload-drag
           ref="imageUpload"
           :action="action"
@@ -67,7 +67,7 @@
       
       </view>
       
-      <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-xl tn-margin">
+      <!-- <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-xl tn-margin">
         <view class="tn-flex justify-content-item">
           <view class="tn-bg-black tn-color-white tn-text-center" style="border-radius: 100rpx;margin-right: 8rpx;width: 45rpx;height: 45rpx;line-height: 45rpx;">
             <text class="tn-icon-tag" style="font-size: 30rpx;"></text>
@@ -78,16 +78,16 @@
           <text class="tn-padding-xs">多选</text>
           <text class="tn-icon-constellation"></text>
         </view>
-      </view>
+      </view> -->
       
-      <view class="tn-tag-content tn-margin tn-text-justify">
+      <!-- <view class="tn-tag-content tn-margin tn-text-justify">
         <view v-for="(item, index) in tags" :key="index" class="tn-tag-content__item tn-margin-right tn-round tn-text-sm tn-text-bold" :class="[item.select ? `tn-bg-${item.color}--light tn-color-${item.color}` : 'tn-bg-gray--light tn-color-gray--dark']"  @click="handleTagsClick(index)">
           <text :class="['tn-padding-right-xs tn-icon-' + item.icon]"></text> {{ item.title }}
         </view>
-      </view>
+      </view> -->
       
       <!-- 悬浮按钮-->
-      <view class="tn-flex tn-footerfixed">
+      <view class="tn-flex tn-footerfixed" style="display: none;">
         <view class="tn-flex-1 justify-content-item tn-margin-sm tn-text-center">
           <tn-button backgroundColor="#3668fc" padding="40rpx 0" width="70%" fontBold @tap="upload">
             <!-- <text class="tn-icon-light tn-padding-right-xs tn-color-black"></text> -->

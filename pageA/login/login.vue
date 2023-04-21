@@ -20,7 +20,7 @@
       
       <view class="login__wrapper">
         <!-- 登录/注册切换 -->
-        <view class="login__mode tn-flex tn-flex-direction-row tn-flex-nowrap tn-flex-col-center tn-flex-row-center">
+        <view style="display: none;" class="login__mode tn-flex tn-flex-direction-row tn-flex-nowrap tn-flex-col-center tn-flex-row-center">
           <view class="login__mode__item tn-flex-1" :class="[{'login__mode__item--active': currentModeIndex === 0}]" @tap.stop="modeSwitch(0)">
             登录
           </view>
@@ -36,7 +36,7 @@
         <view class="login__info tn-flex tn-flex-direction-column tn-flex-col-center tn-flex-row-center">
           <!-- 登录 -->
           <block v-if="currentModeIndex === 0">
-            <view class="login__info__item__input tn-flex tn-flex-direction-row tn-flex-nowrap tn-flex-col-center tn-flex-row-left">
+            <view style="display: none;" class="login__info__item__input tn-flex tn-flex-direction-row tn-flex-nowrap tn-flex-col-center tn-flex-row-left">
               <view class="login__info__item__input__left-icon">
                 <view class="tn-icon-phone"></view>
               </view>
@@ -45,7 +45,7 @@
               </view>
             </view>
             
-            <view class="login__info__item__input tn-flex tn-flex-direction-row tn-flex-nowrap tn-flex-col-center tn-flex-row-left">
+            <view style="display: none;" class="login__info__item__input tn-flex tn-flex-direction-row tn-flex-nowrap tn-flex-col-center tn-flex-row-left">
               <view class="login__info__item__input__left-icon">
                 <view class="tn-icon-lock"></view>
               </view>
@@ -59,7 +59,7 @@
           </block>
           <!-- 注册 -->
          <block v-if="currentModeIndex === 1">
-            <view class="login__info__item__input tn-flex tn-flex-direction-row tn-flex-nowrap tn-flex-col-center tn-flex-row-left">
+            <view style="display: none;" class="login__info__item__input tn-flex tn-flex-direction-row tn-flex-nowrap tn-flex-col-center tn-flex-row-left">
               <view class="login__info__item__input__left-icon">
                 <view class="tn-icon-phone"></view>
               </view>
@@ -99,7 +99,7 @@
         </view>
         
         <!-- 其他登录方式 -->
-       <view class="login__way tn-flex tn-flex-col-center tn-flex-row-center">
+       <view class="login__way tn-flex tn-flex-col-center tn-flex-row-center" style="display: none;">
           <view class="tn-padding-sm tn-margin-xs">
             <view class="login__way__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-green tn-color-white">
               <view class="tn-icon-wechat-fill"></view>

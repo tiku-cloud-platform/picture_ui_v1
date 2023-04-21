@@ -104,7 +104,7 @@
                       <view class="tn-flex tn-flex-col-center tn-flex-row-left">
                         <view class="logo-pic">
                           <view class="logo-image">
-                            <view class="" :style="'background-image:url('+ item.author.qr_url +');width: 40rpx;height: 40rpx;background-size: cover;'">
+                            <view class="" :style="'background-image:url('+ item.user.avatar_url +');width: 40rpx;height: 40rpx;background-size: cover;'">
                             </view>
                           </view>
                         </view>
@@ -150,7 +150,7 @@
                       <view class="tn-flex tn-flex-col-center tn-flex-row-left">
                         <view class="logo-pic">
                           <view class="logo-image">
-                            <view class="" :style="'background-image:url('+ item.author.qr_url +');width: 40rpx;height: 40rpx;background-size: cover;'">
+                            <view class="" :style="'background-image:url('+ item.user.avatar_url +');width: 40rpx;height: 40rpx;background-size: cover;'">
                             </view>
                           </view>
                         </view>
@@ -256,10 +256,6 @@
 			},
 			menuTn(url, index) {
 				if (this.menuList[index].state == 1) {
-					if (this.menuList[index].navigate == 'gif') {
-						this.$parent.changeTabbar(1)
-						return
-					}
 					uni.navigateTo({
 						url: this.menuList[index].navigate
 					})

@@ -64,7 +64,7 @@
     <view class="group-wrap tn-bg-white" id="page_tips">
       
       <!-- 悬浮按钮-->
-      <view class="tn-flex tn-flex-row-between" style="padding: 60rpx 0 30rpx 0;">
+      <view class="tn-flex tn-flex-row-between" style="padding: 60rpx 0 30rpx 0;display: none;">
         <view class="tn-flex-1 justify-content-item tn-margin-xs tn-text-center">
           <tn-button backgroundColor="#3668fc" padding="40rpx 0" width="90%" fontBold  @click="tn('/pageB/edit/edit')">
             <!-- <text class="tn-icon-wechat tn-padding-right-xs tn-color-white"></text> -->

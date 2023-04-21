@@ -21,6 +21,12 @@
           }
         },
 				{
+				  "path": "site/category",
+				  "style": {
+				  	"navigationBarTitleText": "站点导航"
+				  }
+				},
+				{
 				  "path": "image/category",
 				  "style": {
 				  	"navigationBarTitleText": "分类"

@@ -90,7 +90,7 @@
             <view class="">
               <view class="logo-pic tn-shadow">
                 <view class="logo-image">
-					<view class="tn-shadow-blur" :style="'background-image:url('+ swiperList[0].author.qr_url +');width: 100rpx;height: 100rpx;background-size: cover;'">
+					<view class="tn-shadow-blur" :style="'background-image:url('+ swiperList[0].user.avatar_url +');width: 100rpx;height: 100rpx;background-size: cover;'">
                   </view>
                 </view>
               </view>
