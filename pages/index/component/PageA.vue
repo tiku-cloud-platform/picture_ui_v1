@@ -70,14 +70,14 @@
     
     
     <!--胶囊 banner 需要可用显示出来即可 start-->
-    <!-- <view class="tn-flex tn-flex-wrap tn-padding-bottom" @click="tn('')">
+    <view class="tn-flex tn-flex-wrap tn-padding-bottom" @click="tnMini('wxf3d81a452b88ff4b')">
       <view class="" style="width: 100%;">
         <view class="image-piccapsule tn-shadow-blur" style="background-image:url('https://tnuiimage.tnkjapp.com/capsule-banner/banner-tnmb.png');">
            <view class="image-capsule">
            </view>
          </view>  
       </view>  
-    </view> -->
+    </view>
     <!-- banner end-->
     
     
@@ -233,6 +233,14 @@
 			this.getImageList()
     },
     methods: {
+			tnMini(appId) {
+				uni.navigateToMiniProgram({
+					appId: appId,
+					fail(res) {
+						this.$func.showToast('跳转失败 刷新重试')
+					}
+				})
+			},
 			clickBanner(index) {
 				if (this.bannerList[index].navigate != '') {
 					uni.navigateTo({

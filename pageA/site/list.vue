@@ -212,7 +212,7 @@
 				position: relative;
 
 				.title {
-					color: black;
+					color: #FFFFFF;
 					text-align: left;
 				}
 			}

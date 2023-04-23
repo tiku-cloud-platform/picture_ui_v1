@@ -88,7 +88,7 @@
 			},
 			list(index) {
 				uni.navigateTo({
-					url: '/pageA/emo/list?uid=' + this.imageList[index].uid
+					url: '/pageA/emo/detail?uid=' + this.imageList[index].uid
 				})
 			}
 		}

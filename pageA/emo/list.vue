@@ -1,342 +1,248 @@
 <template>
-	<view style="width: 100vw;padding-bottom: env(safe-area-inset-bottom);">
-		<view style="position: sticky;top: 0;background: #FFF;">
-			<view class="header">
-				<view class="poster-bg" :style="{'background-image': 'url('+emoList[current]['img_back']+')'}"></view>
-				<view class="header-pic">
-					<image :showMenuByLongpress="false" errorIcon="photo" height="440rpx" radius="6" mode="aspectFit" :src="emoList[current]['img_back']" width="440rpx"></image>
-				</view>
+	<view class="page-b">
+
+		<!-- 顶部自定义导航 -->
+		<tn-nav-bar fixed alpha customBack>
+		  <view slot="back" class='tn-custom-nav-bar__back'
+		    @click="goBack">
+		    <text class='icon tn-icon-left'></text>
+		    <text class='icon tn-icon-home-capsule-fill'></text>
+		  </view>
+		</tn-nav-bar>
+
+		<view class="tn-classify__wrap" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
+			<!-- 搜索框 -->
+			<view class="tn-search-fixed">
+			  <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-margin" :style="{marginTop: 10 + 'px'}">
+			    
+			    <view class="justify-content-item align-content-item" style="width: 100vw;">
+			      <view class="tn-flex tn-flex-col-center" style="border-radius: 100rpx;padding: 10rpx 20rpx 10rpx 20rpx;width: 95%;background-color: rgba(248, 247, 248, 0.9);">
+			        <text class="tn-icon-search justify-content-item tn-padding-right-xs tn-color-gray tn-text-lg"></text>
+			        <input class="justify-content-item" placeholder="想搜点什么咧" name="input" @input="searchInput" placeholder-style="color:#AAAAAA" style="width: 90%;"></input>
+			      </view>
+			    </view>
+			    
+			    <view class="align-content-item">
+			      <view class="justify-content-item tn-text-center">
+			        <tn-button backgroundColor="#3668fc" shape="round" padding="20rpx 20rpx" width="150rpx" @tap="emoSearch">
+			          <text class="tn-color-white">搜 索</text>
+			        </tn-button>
+			
+			      </view>
+			    </view>
+			  </view>
 			</view>
+			<!-- 搜索框结束 -->
+
+			<!-- 图片列表开始 -->
+			<view class="emo-container">
+				<template v-for="(item, index) in imageList">
+					<view class="item-header" :index="index" @click="list(index)">
+						<text class="item-title">{{ item.title }}</text>
+						<text class="item-more-title">更多 ></text>
+					</view>
+					<view class="item-container" :index="index" @click="list(index)">
+						<template v-for="(it ,ix) in (item.img)">
+							<view class="item-image">
+								<image :src="it.img_back" mode="scaleToFill" style="height: 100%;width: 100%;border-radius: 6rpx;"></image>
+							</view>
+						</template>
+					</view>
+				</template>
+			</view>
+			<!-- 图片列表结束 -->
 		</view>
 		
-		<view class="content">
-			<view style="background: #FFF;height: 110rpx;border-radius: 50rpx;">
-				<view class="btns">
-					<view class="aaa" style="width:calc(100% / 5)" @click="back()">
-						<text class="tn-icon-revoke" style="margin-bottom: 10rpx;font-size: 30rpx;"></text>
-						<text>返回</text>
-					</view>
-					<view class="aaa" style="width:calc(100% / 5)" @click="download()">
-						<text class="tn-icon-download" style="margin-bottom: 10rpx;font-size: 30rpx;"></text>
-						<text>下载</text>
-					</view>
-					<view class="aaa" style="width:calc(100% / 5)">
-						<text class="tn-icon-edit-write" style="margin-bottom: 10rpx;font-size: 30rpx;"></text>
-						<text>改图</text>
-					</view>
-					<view class="aaa" style="width:calc(100% / 5)" @click="clickLike()">
-						<text class="tn-icon-star" style="margin-bottom: 10rpx;font-size: 30rpx;"></text>
-						<text>收藏</text>
-					</view>
-					<view class="aaa" style="width:calc(100% / 5)" @click="shareImage()">
-						<text class="tn-icon-send" style="margin-bottom: 10rpx;font-size: 30rpx;"></text>
-						<text>分享</text>
-					</view>
-					<!-- <button class="aaa u-reset-button" style="width:calc(100% / 5)" open-type="share">
-						<text class="tn-icon-send" style="margin-bottom: 10rpx;font-size: 30rpx;"></text>
-						<text>分享</text>
-					</button> -->
-				</view>
-			</view>
-			
-			<scroll-view class="scroll-view" :scrollY="true" style="height: 50vh;" @scrolltolower="getImageList">
-				<view class="container" v-if="isShowContainer">
-					<view  style="width: 100%;height: 100%;">
-						<view class="image-list">
-							<view class="image" @click="clickImage(item, index)" v-for="(item, index) in emoList" :key="index" :class="current == index ? 'active' : ''">
-								<image :src="item.img_back"  lazy-load="true" style="height: 100%;width: 100%;border-radius: 6rpx;"></image>
-							</view>
-						</view>
-						<tn-read-more ref="readMore" openText="付费后解锁剩余内容"></tn-read-more>
-					</view>
-				</view>
-			</scroll-view>
+		<!-- 回到首页悬浮按钮-->
+		<view v-if="showScropTop">
+			<nav-index-button></nav-index-button>
 		</view>
 	</view>
+
 </template>
 
 <script>
-	import { emoGroupList, emoImageList } from '@/utils/api/emo.js'
+	import { emoGroupList } from '@/utils/api/emo.js'
+	import NavIndexButton from '@/libs/components/nav-index-button.vue'
+	import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
 	export default {
+		name: 'EmoList',
+		components: { NavIndexButton },
+		mixins: [template_page_mixin],
 		data() {
 			return {
-				title: '快搜表情',
-				current: 0,
-				emoList: [],
+				imageList: [],
 				searchWhere: {
+					size: 20,
+					title: "",
 					page: 1,
-					size: 24,
-					group_uid: ''
 				},
-				isShowContainer: true,
+				showScropTop: false,
 			}
 		},
-		onLoad(option) {
-			this.searchWhere.group_uid = option.uid || ''
-			this.getImageList()
-			this.createAd()
-		},
-		computed: {
-			
-		},
-		onReady() {
-			this.$nextTick(() => {
-				this.$refs.readMore.init()
-			})
+		created() {
+			this.getEmoGroupList()
 		},
 		methods: {
-			createAd() {
-				// 在页面中定义激励视频广告
-				let videoAd = null
-				
-				// 在页面onLoad回调事件中创建激励视频广告实例
-				if (wx.createRewardedVideoAd) {
-				  videoAd = wx.createRewardedVideoAd({
-				    adUnitId: 'adunit-4b17d1d83829ce16'
-				  })
-				  videoAd.onLoad(() => {})
-				  videoAd.onError((err) => {})
-				  videoAd.onClose((res) => {})
-				}
-				
-				// 用户触发广告后，显示激励视频广告
-				if (videoAd) {
-				  videoAd.show().catch(() => {
-				    // 失败重试
-				    videoAd.load()
-				      .then(() => videoAd.show())
-				      .catch(err => {
-				        console.log('激励视频 广告显示失败')
-				      })
-				  })
-				}
+			searchInput(e) {
+				this.searchWhere.title = e.detail.value
 			},
-			shareImage() {
-				this.$func.shareImage(this.emoList[this.current].img_back)
+			emoSearch() {
+				this.searchWhere.page = 1
+				this.searchWhere.size = 20
+				this.getEmoGroupList()
+				this.imageList = []
 			},
-			download() {
-				this.$func.downloadImage(this.emoList[this.current].img_back)
-			},
-			back() {
-				uni.navigateBack()
-			},
-			getImageList() {
+			getEmoGroupList(){
 				uni.showLoading({
-					title: '努力加载中'
+					title: "数据努力加载中"
 				})
-				emoImageList(this.searchWhere).then(res => {
-					if (res.items.length > 0) {
-						this.emoList.push(...res.items)
-						this.searchWhere.page = res.page + 1
-						this.searchWhere.size = res.size
-					} else {
-						this.$func.showToast('暂无新数据')
-					}
+				emoGroupList(this.searchWhere).then(res => {
 					uni.hideLoading()
+					if (res.items.length < 1) {
+						this.$func.showToast('暂无新数据')
+						return
+					}
+					this.imageList.push(...res.items)
+					this.searchWhere.page = res.page + 1
+					this.searchWhere.size = res.size
 				})
 			},
-			clickImage(item,index) {
-				this.current = index
-			},
+			list(index) {
+				uni.navigateTo({
+					url: '/pageA/emo/detail?uid=' + this.imageList[index].uid
+				})
+			}
+		},
+		onReachBottom() {
+			this.getEmoGroupList()
+		},
+		onPageScroll(e) {
+			if (e.scrollTop > 1000) {
+				this.showScropTop = true
+			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.image-list {
-		width: 100%;
-		height: 160rpx;
-		display: flex;
-		flex-wrap: wrap;
-		flex-direction: row;
+	.tn-custom-nav-bar__back {
+	  width: 100%;
+	  height: 100%;
+	  position: relative;
+	  display: flex;
+	  justify-content: space-evenly;
+	  align-items: center;
+	  box-sizing: border-box;
+	  background-color: rgba(0, 0, 0, 0.15);
+	  border-radius: 1000rpx;
+	  border: 1rpx solid rgba(255, 255, 255, 0.5);
+	  color: #FFFFFF;
+	  font-size: 18px;
+	  
+	  .icon {
+	    display: block;
+	    flex: 1;
+	    margin: auto;
+	    text-align: center;
+	  }
+	  
+	  &:before {
+	    content: " ";
+	    width: 1rpx;
+	    height: 110%;
+	    position: absolute;
+	    top: 22.5%;
+	    left: 0;
+	    right: 0;
+	    margin: auto;
+	    transform: scale(0.5);
+	    transform-origin: 0 0;
+	    pointer-events: none;
+	    box-sizing: border-box;
+	    opacity: 0.7;
+	    background-color: #FFFFFF;
+	  }
 	}
-	.image {
-		width: 24%;
-		height: 100%;
+	.emo-container {
+		margin: 8px 12px 0px 12px;
+	}
+	.item-container {
+		display: flex;
+		flex-direction: row;
+		height: 160rpx;
 		margin-bottom: 20rpx;
 	}
-	.image:not(:first-child) {
+	.item-header {
+		height: 50rpx;
+		line-height: 50rpx;
+		margin-bottom: 10rpx;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.item-title {
+		font-size: 30rpx;
+		color: #000;
+	}
+	.item-more-title {
+		font-size: 20rpx;
+		color: gray;
+	}
+	.item-image:not(:first-child) {
 		margin-left: 1%;
 	}
-	.u-reset-button {
-		padding: 0;
-		font-size: inherit;
-		line-height: inherit;
-		background-color: initial;
-		color: inherit;
-	}
-	
-	.u-reset-button::after {
-		border: none;
-	}
-	.scroll-view {
-	    white-space: nowrap;
-		padding-bottom: env(safe-area-inset-bottom)
-	}
-	
-	.wty-more {
-	    display: flex;
-	    align-items: center;
-	    font-size: 20rpx;
-	    color: #868484;
-	}
-	
-	.two-btn {
-		width:130rpx;
-	}
-	
-	.header {
-	    position: relative;
-		overflow: hidden;
-		height: 45vh;
-	}
-	
-	.poster-bg, .header::after{
-		position: absolute;
-		width: 100%;
+	.item-image {
+		width: 24%;
 		height: 100%;
-		top: 0;
-		left: 0;
 	}
-	
-	.header::after{
-		content: '';
-		background-color: rgba(0,0,0, .3);
+	.page-b {
+		max-height: 100vh;
 	}
-	
-	.poster-bg{
-	    filter: blur(20rpx);
-	    background-size: cover;
-	    background-position: center;
-	    transition: background .3s ease-in-out;
-	}
-	
-	.header-pic {
-	    width: 100%;
-	    height: 90%;
-	    z-index: 2;
-	    position: absolute;
-	    display: flex;
-	    justify-content: center;
-	    align-items: center;
-	}
-	
-	.content {
-		background: #ffffff;
-		margin-top: -40rpx;
-		position: relative;
-		border-radius: 50rpx;
-		height: 55vh;
-	}
-	
-	.btns {
-		width: 90%;
-		background: #000;
-		opacity: 0.5;
-		margin-left: 5%;
-		top: 10rpx;
-		height: 90rpx;
-		position: relative;
-		border-radius: 25px;
-		display: flex;
-		
-		font-size: 24rpx;
-		color: #FFF;
-		
-		.aaa {
-			place-items: center;
-			place-content: center;
-			display: grid;
-			line-height: 1;
+
+	/* 自定义导航栏内容 start */
+	.custom-nav {
+		height: 100%;
+
+		&__back {
+			margin: auto 30rpx;
+			margin-right: 10rpx;
+			flex-basis: 5%;
+			width: 100rpx;
+			position: absolute;
 		}
 	}
-	
-	.desc {
-		font-size: 24rpx;
-		margin-top: 5rpx;
-		display: flex;
-		place-items: center;
-		
-		.nick-name {
-			margin-left: 10rpx;
+
+
+	.left-width {
+		flex-basis: 28%;
+	}
+
+	/* 自定义导航栏内容 end */
+	.tn-classify {
+
+		/* 搜索栏 start */
+		&__search {
+			&--wrap {}
+
+			&__box {
+				flex: 1;
+				text-align: center;
+				padding: 20rpx 30rpx;
+				margin: 0 30rpx;
+				border-radius: 60rpx;
+				font-size: 30rpx;
+			}
+
+			&__icon {
+				padding-right: 10rpx;
+			}
+
+			&__text {
+				padding-right: 10rpx;
+			}
 		}
-	}
-	
-	.button {
-		box-sizing: border-box;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		flex-wrap: wrap;
-		font-size: 24rpx;
-		color: #555;
-	}
-	
-	.header-btn {
-		width: 85%;
-	}
-	
-	.header-btn-val {
-	    display: flex;
-	    justify-content: flex-start;
-	    padding-left: 70rpx;
-		background: #FFF;
-		height: 30px;
-		border-radius: 25px;
-		line-height: 30px;
-	}
-	
-	.container {
-	    display: flex;
-	    flex-wrap: wrap;
-	    padding: 30rpx 22rpx 0;
-	    border-bottom: 20rpx solid #f5f6f7;
-	}
-	
-	.picture {
-	    position: relative;
-	    width: calc(100% / 4);
-	    padding: 0 8rpx;
-	    margin-bottom: 16rpx;
-	    box-sizing: border-box;
-	}
-	
-	.active {
-	    border: 1px solid #f9db61;
-			opacity: 1;
-	}
-	
-	.active .border-checkbox {
-	    opacity: 1;
-	}
-	
-	.border-checkbox {
-	    font-size: 22rpx;
-	    position: absolute;
-	    bottom: 0;
-	    right: 0;
-	    width: 34rpx;
-	    height: 34rpx;
-	    padding-right: 2rpx;
-	    text-align: right;
-	    line-height: 38rpx;
-	    border-radius: 20rpx 0 0 0;
-	    background-color: #FBBD12;
-	    opacity: 0;
-	    transition: opacity .2s;
-	}
-	
-	.loadmore {
-	    display: flex;
-	    width: 100%;
-	    justify-content: center;
-	    padding-top: 10rpx;
-	    padding-bottom: 10rpx;
-	}
-	
-	.line {
-	    width: 2px;
-	    height: 26rpx;
-	    background-color: #ddd;
+
+		/* 搜索栏 end */
 	}
 </style>
