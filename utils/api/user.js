@@ -17,3 +17,9 @@ export function updateUserInfo(params) {
 		return res.data
 	})
 }
+
+export function userScoreHistoryList(params) {
+	return request.get("user/score/history", params).then(res => {
+		return res.data
+	})
+}
