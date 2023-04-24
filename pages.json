@@ -33,6 +33,12 @@
 				  }
 				},
 				{
+				  "path": "site/link",
+				  "style": {
+				  	"navigationBarTitleText": "站点友链"
+				  }
+				},
+				{
 				  "path": "image/category",
 				  "style": {
 				  	"navigationBarTitleText": "分类"

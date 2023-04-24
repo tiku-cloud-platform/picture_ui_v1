@@ -146,7 +146,6 @@
 		onLoad(options) {
 			this.image_uid = options.image_uid || ""
 			this.getImageItemList()
-			this.createAd()
 		},
     methods: {
 			createAd() {
@@ -189,6 +188,7 @@
 				this.downloadImageHandle()
 			},
 			downloadImageHandle() {
+				this.createAd()
 				let _that = this
 				let cache = uni.getStorageSync('downloadimage')
 				if (!cache) {

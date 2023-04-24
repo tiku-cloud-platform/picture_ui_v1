@@ -23,3 +23,11 @@ export function item(params) {
 		return res.data
 	})
 }
+
+export function linkList(params) {
+	return request.get("source/link", {
+		params: params,
+	}).then(res => {
+		return res.data
+	})
+}

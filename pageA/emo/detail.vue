@@ -74,7 +74,6 @@
 		onLoad(option) {
 			this.searchWhere.group_uid = option.uid || ''
 			this.getImageList()
-			this.createAd()
 		},
 		computed: {
 			
@@ -112,9 +111,11 @@
 				}
 			},
 			shareImage() {
+				this.createAd()
 				this.$func.shareImage(this.emoList[this.current].img_back)
 			},
 			download() {
+				this.createAd()
 				this.$func.downloadImage(this.emoList[this.current].img_back)
 			},
 			back() {
