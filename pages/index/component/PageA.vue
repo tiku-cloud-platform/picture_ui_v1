@@ -72,7 +72,7 @@
     <!--胶囊 banner 需要可用显示出来即可 start-->
     <view class="tn-flex tn-flex-wrap tn-padding-bottom" @click="tnMini('wxf3d81a452b88ff4b')">
       <view class="" style="width: 100%;">
-        <view class="image-piccapsule tn-shadow-blur" style="background-image:url('https://tnuiimage.tnkjapp.com/capsule-banner/banner-tnmb.png');">
+        <view class="image-piccapsule tn-shadow-blur" style="background-image:url('http://qiniucloud.qqdeveloper.com//a50671927a88484e3c24ea7c909d273b.png');">
            <view class="image-capsule">
            </view>
          </view>  
