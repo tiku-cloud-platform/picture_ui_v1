@@ -125,7 +125,7 @@
               </view>
             </template>
             <template v-slot:right="{ rightList }">
-              <!-- <view class="tn-color-black tn-text-bold tn-bg-yellow home-shadow" style="height: 160rpx;margin: 0 10rpx 20rpx 10rpx;border-radius: 10rpx;" @click="tn('/pageB/activity/activity')">
+              <view class="tn-color-black tn-text-bold tn-bg-yellow home-shadow" style="height: 160rpx;margin: 0 10rpx 20rpx 10rpx;border-radius: 10rpx;" @click="tn('/pageB/activity/activity')">
                 <view class="tn-padding-left tn-padding-top-lg">
                   Ai · 广场
                 </view>
@@ -133,7 +133,7 @@
                   晒出你的ai创作
                   <text class="tn-icon-right tn-padding-left-xs"></text>
                 </view>
-              </view> -->
+              </view>
               <view v-for="(item, index) in rightList" :key="item.uid" class="wallpaper__item" @click="tn('/pageA/details/details?image_uid=' + item.uid)">
                 <view class="item__image">
                   <tn-lazy-load :threshold="6000" height="100%" :image="item.url + item.path" :index="item.uid" imgMode="widthFix"></tn-lazy-load>

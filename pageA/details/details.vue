@@ -23,12 +23,12 @@
     
     
     <!-- 页面内容 -->
-	<view class="slideshow">
+	<!-- <view class="slideshow">
 		<template v-for="(item, index) in swiperList">
 			<view class="slideshow-image"  @click="imagePreview(index)" :style="'background-image:url('+ item.url + item.path + ');'"></view>
-		</template>	</view>
-	<!-- <swiper class="card-swiper" :circular="true"
-      :autoplay="true" duration="500" interval="12000" @change="cardSwiper" > 
+		</template>	</view> -->
+	<swiper class="card-swiper" :circular="true"
+      :autoplay="true" duration="500" interval="5000" @change="cardSwiper" > 
       <swiper-item v-for="(item,index) in swiperList" :key="index" :class="cardCur==index?'cur':''">
         <view class="swiper-item image-banner" @click="$func.imagePreview(item.url + item.path)" :style="'background-image:url('+ item.url + item.path + ');background-size: cover;border-radius: 15rpx;background-repeat: no-repeat;'">
         </view>
@@ -38,7 +38,7 @@
         <block v-for="(item,index) in swiperList" :key="index">
             <view class="spot" :class="cardCur==index?'active':''"></view>
         </block>
-    </view> -->
+    </view>
     
     
     <!-- 底部tabbar start-->
@@ -51,7 +51,7 @@
         </view>
         <view class="">收藏</view>
       </view>
-      <view class="action" @click="downloadImageHandle">
+      <view class="action" @click="downloadImage">
         <view class="bar-icon">
           <view class="tn-icon-download">
           </view>
@@ -159,30 +159,30 @@
           url: e,
         })
       },
-			imagePreview(index) {
-				this.cardCur = index
-				this.downloadImageHandle()
-			},
-			downloadImageHandle() {
-				let _that = this
-				let cache = uni.getStorageSync('downloadimage')
-				if (!cache) {
-					uni.showModal({
-						title: '下载提示',
-						content: '默认下载第一张，下载指定图片，请点击对应的图片',
-						confirmText: '知道了',
-						cancelText: '关闭',
-						success(res) {
-							if (res.confirm) {// 点击确认
-								uni.setStorageSync('downloadimage', 1)
-							}
-							_that.downloadImage()
-						}
-					})
-				} else {
-					this.downloadImage()
-				}
-			},
+			// imagePreview(index) {
+			// 	this.cardCur = index
+			// 	this.downloadImageHandle()
+			// },
+			// downloadImageHandle() {
+			// 	let _that = this
+			// 	let cache = uni.getStorageSync('downloadimage')
+			// 	if (!cache) {
+			// 		uni.showModal({
+			// 			title: '下载提示',
+			// 			content: '默认下载第一张，下载指定图片，请点击对应的图片',
+			// 			confirmText: '知道了',
+			// 			cancelText: '关闭',
+			// 			success(res) {
+			// 				if (res.confirm) {// 点击确认
+			// 					uni.setStorageSync('downloadimage', 1)
+			// 				}
+			// 				_that.downloadImage()
+			// 			}
+			// 		})
+			// 	} else {
+			// 		this.downloadImage()
+			// 	}
+			// },
       downloadImage() {
 				imageDownLoad({image_uid: this.swiperList[this.cardCur].uid}).then(res => {
 					if (res.code == 1) {
@@ -192,7 +192,6 @@
 					this.$func.showToast(res.msg)
 				})
 			},
-      // cardSwiper
       cardSwiper(e) {
         this.cardCur = e.detail.current
       },

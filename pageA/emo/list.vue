@@ -24,10 +24,9 @@
 			    
 			    <view class="align-content-item">
 			      <view class="justify-content-item tn-text-center">
-			        <tn-button backgroundColor="#3668fc" shape="round" padding="20rpx 20rpx" width="150rpx" @tap="emoSearch">
+			        <tn-button backgroundColor="#3668fc" shape="round" padding="20rpx 20rpx" width="150rpx" @click="emoSearch">
 			          <text class="tn-color-white">搜 索</text>
 			        </tn-button>
-			
 			      </view>
 			    </view>
 			  </view>
@@ -80,7 +79,8 @@
 				showScropTop: false,
 			}
 		},
-		created() {
+		onLoad() {
+			console.log("onload执行")
 			this.getEmoGroupList()
 		},
 		methods: {
@@ -90,8 +90,9 @@
 			emoSearch() {
 				this.searchWhere.page = 1
 				this.searchWhere.size = 20
-				this.getEmoGroupList()
 				this.imageList = []
+				console.log("搜索执行")
+				this.getEmoGroupList()
 			},
 			getEmoGroupList(){
 				uni.showLoading({
@@ -115,6 +116,7 @@
 			}
 		},
 		onReachBottom() {
+			console.log("到达底部执行")
 			this.getEmoGroupList()
 		},
 		onPageScroll(e) {

@@ -11,7 +11,7 @@
 		
     <view class="tn-safe-area-inset-bottom" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
       
-      <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top tn-margin">
+      <view style="display: none;" class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top tn-margin">
         <view class="tn-flex justify-content-item">
           <view class="tn-bg-black tn-color-white tn-text-center" style="border-radius: 100rpx;margin-right: 8rpx;width: 45rpx;height: 45rpx;line-height: 45rpx;">
             <text class="tn-icon-topics" style="font-size: 30rpx;"></text>
@@ -27,11 +27,11 @@
       <!-- <view class="tn-margin tn-bg-gray--light" style="border-radius: 10rpx;padding: 20rpx 30rpx;">
       	<input placeholder="写下一句简短的标题" name="input" placeholder-style="color:#AAAAAA" ></input>
       </view> -->
-      <view class="tn-margin tn-bg-gray--light tn-padding" style="border-radius: 10rpx;">
+      <view class="tn-margin tn-bg-gray--light tn-padding" style="border-radius: 10rpx;display: none;">
         <textarea maxlength="300" placeholder="输入你的脑洞创意" placeholder-style="color:#AAAAAA" style="height: 100rpx;"></textarea>
       </view>
       
-      <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-xl tn-margin">
+      <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-xl tn-margin" style="display: none;">
         <view class="tn-flex justify-content-item">
           <view class="tn-bg-black tn-color-white tn-text-center" style="border-radius: 100rpx;margin-right: 8rpx;width: 45rpx;height: 45rpx;line-height: 45rpx;">
             <text class="tn-icon-image" style="font-size: 30rpx;"></text>
@@ -47,7 +47,7 @@
       
       
       
-      <view class="tn-margin-left tn-padding-top-xs">
+      <view class="tn-margin-left tn-padding-top-xs" style="display: none;">
         <tn-image-upload-drag
           ref="imageUpload"
           :action="action"
@@ -67,7 +67,7 @@
 
       </view>
       
-      <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-xl tn-margin">
+      <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-xl tn-margin" style="display: none;">
         <view class="tn-flex justify-content-item">
           <view class="tn-bg-black tn-color-white tn-text-center" style="border-radius: 100rpx;margin-right: 8rpx;width: 45rpx;height: 45rpx;line-height: 45rpx;">
             <text class="tn-icon-rocket" style="font-size: 30rpx;"></text>
@@ -80,13 +80,13 @@
         </view>
       </view>
       
-      <view class="tn-tag-content tn-margin tn-text-justify tn-padding-bottom">
+      <view class="tn-tag-content tn-margin tn-text-justify tn-padding-bottom" style="display: none;">
         <view v-for="(item, index) in manner" :key="index" class="tn-tag-content__item tn-margin-right tn-round tn-text-sm tn-text-bold" :class="[item.select ? `tn-bg-${item.color}--light tn-color-${item.color}` : 'tn-bg-gray--light tn-color-gray--dark']"  @click="handleMannerClick(index)">
           <text :class="['tn-padding-right-xs tn-icon-' + item.icon]"></text> {{ item.title }}
         </view>
       </view>
       
-      <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-lg tn-margin">
+      <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-lg tn-margin" style="display: none;">
         <view class="tn-flex justify-content-item">
           <view class="tn-bg-black tn-color-white tn-text-center" style="border-radius: 100rpx;margin-right: 8rpx;width: 45rpx;height: 45rpx;line-height: 45rpx;">
             <text class="tn-icon-science" style="font-size: 30rpx;"></text>
@@ -99,14 +99,14 @@
         </view>
       </view>
       
-      <view class="tn-tag-content tn-margin tn-text-justify">
+      <view class="tn-tag-content tn-margin tn-text-justify" style="display: none;">
         <view v-for="(item, index) in artist" :key="index" class="tn-tag-content__item tn-margin-right tn-round tn-text-sm tn-text-bold" :class="[item.select ? `tn-bg-${item.color}--light tn-color-${item.color}` : 'tn-bg-gray--light tn-color-gray--dark']"  @click="handleArtistClick(index)">
           <text :class="['tn-padding-right-xs tn-icon-' + item.icon]"></text> {{ item.title }}
         </view>
       </view>
       
       <!-- 悬浮按钮-->
-      <view class="tn-flex tn-footerfixed">
+      <view class="tn-flex tn-footerfixed" style="display: none;">
         <view class="tn-flex-1 justify-content-item tn-margin-sm tn-text-center">
           <tn-button backgroundColor="#fbbd12" padding="40rpx 0" width="70%" fontBold @click="tn('/pageB/result/result')">
             <!-- <text class="tn-icon-light tn-padding-right-xs tn-color-black"></text> -->
