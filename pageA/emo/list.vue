@@ -43,7 +43,7 @@
 					<view class="item-container" :index="index" @click="list(index)">
 						<template v-for="(it ,ix) in (item.img)">
 							<view class="item-image">
-								<image :src="it.img_back" mode="scaleToFill" style="height: 100%;width: 100%;border-radius: 6rpx;"></image>
+								<image :src="(it.url + it.path)" mode="scaleToFill" style="height: 100%;width: 100%;border-radius: 6rpx;"></image>
 							</view>
 						</template>
 					</view>
@@ -80,7 +80,6 @@
 			}
 		},
 		onLoad() {
-			console.log("onload执行")
 			this.getEmoGroupList()
 		},
 		methods: {
@@ -116,7 +115,6 @@
 			}
 		},
 		onReachBottom() {
-			console.log("到达底部执行")
 			this.getEmoGroupList()
 		},
 		onPageScroll(e) {

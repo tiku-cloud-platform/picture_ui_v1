@@ -35,7 +35,7 @@
       navTop() {
 				uni.pageScrollTo({
 					scrollTop: 0,
-					duration: 3000
+					duration: 300
 				})
 			}
     }

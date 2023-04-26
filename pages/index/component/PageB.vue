@@ -21,7 +21,7 @@
 			</view> -->
 			<!-- 搜索框结束 -->
 
-			<!-- 图片列表开始 -->
+			<!-- 表情开始 -->
 			<view class="emo-container">
 				<template v-for="(item, index) in imageList">
 					<view class="item-header" :index="index" @click="list(index)">
@@ -29,15 +29,15 @@
 						<text class="item-more-title">更多 ></text>
 					</view>
 					<view class="item-container" :index="index" @click="list(index)">
-						<template v-for="(it ,ix) in (item.img)">
+						<template v-for="(it, ix) in item.img">
 							<view class="item-image">
-								<image :src="it.img_back" mode="scaleToFill" style="height: 100%;width: 100%;border-radius: 6rpx;"></image>
+								<image :src="(it.url + it.path)" mode="scaleToFill" style="height: 100%;width: 100%;border-radius: 6rpx;"></image>
 							</view>
 						</template>
 					</view>
 				</template>
 			</view>
-			<!-- 图片列表结束 -->
+			<!-- 表情结束 -->
 		</view>
 	</view>
 	</view>

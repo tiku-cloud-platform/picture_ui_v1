@@ -55,7 +55,11 @@
     methods: {
       getScoreHistory() {
 				userScoreHistoryList(this.searchWhere).then(res => {
-					this.scoreHistory.push(...res.items)
+					if (res.items.length > 0) {
+						this.scoreHistory.push(...res.items)
+					} else {
+						this.$func.showToast("无更多积分记录")
+					}
 					this.searchWhere.page = res.page + 1
 				})
 			}

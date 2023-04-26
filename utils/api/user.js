@@ -19,7 +19,9 @@ export function updateUserInfo(params) {
 }
 
 export function userScoreHistoryList(params) {
-	return request.get("user/score/history", params).then(res => {
+	return request.get("user/score/history", {
+		params: params
+	}).then(res => {
 		return res.data
 	})
 }
