@@ -2,9 +2,9 @@
 	<view style="width: 100vw;padding-bottom: env(safe-area-inset-bottom);">
 		<view style="position: sticky;top: 0;background: #FFF;">
 			<view class="header">
-				<view class="poster-bg" :style="{'background-image': 'url('+emoList[current]['img_back']+')'}"></view>
+				<view class="poster-bg" :style="{'background-image': 'url('+emoList[current]['url'] + emoList[current]['path'] +')'}"></view>
 				<view class="header-pic">
-					<image :showMenuByLongpress="false" errorIcon="photo" height="440rpx" radius="6" mode="aspectFit" :src="emoList[current]['img_back']" width="440rpx"></image>
+					<image :showMenuByLongpress="false" errorIcon="photo" height="440rpx" radius="6" mode="aspectFit" :src="(emoList[current]['url'] + emoList[current]['path'])" width="440rpx"></image>
 				</view>
 			</view>
 		</view>
@@ -44,7 +44,7 @@
 					<view  style="width: 100%;height: 100%;">
 						<view class="image-list">
 							<view class="image" @click="clickImage(item, index)" v-for="(item, index) in emoList" :key="index" :class="current == index ? 'active' : ''">
-								<image :src="item.img_back"  lazy-load="true" style="height: 100%;width: 100%;border-radius: 6rpx;"></image>
+								<image :src="(item.url + item.path)"  lazy-load="true" style="height: 100%;width: 100%;border-radius: 6rpx;"></image>
 							</view>
 						</view>
 						<tn-read-more ref="readMore" openText="付费后解锁剩余内容"></tn-read-more>
@@ -85,10 +85,10 @@
 		},
 		methods: {
 			shareImage() {
-				this.$func.shareImage(this.emoList[this.current].img_back)
+				this.$func.shareImage(this.emoList[this.current].url + this.emoList[this.current].path)
 			},
 			download() {
-				this.$func.downloadImage(this.emoList[this.current].img_back)
+				this.$func.downloadImage(this.emoList[this.current].url + this.emoList[this.current].path)
 			},
 			back() {
 				uni.navigateBack()
