@@ -85,10 +85,12 @@
 		},
 		methods: {
 			shareImage() {
-				this.$func.shareImage(this.emoList[this.current].url + this.emoList[this.current].path)
+				let emoUrl = this.emoList[this.current].url + this.emoList[this.current].path
+				this.$func.shareImage(emoUrl.replace("http", "https"))
 			},
 			download() {
-				this.$func.downloadImage(this.emoList[this.current].url + this.emoList[this.current].path)
+				let emoUrl = this.emoList[this.current].url + this.emoList[this.current].path
+				this.$func.downloadImage(emoUrl.replace("http", "https"))
 			},
 			back() {
 				uni.navigateBack()
