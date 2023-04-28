@@ -84,36 +84,36 @@
 			<!-- 方式20 start-->
 			<!-- 发布日签开始 -->
 			<view class="tn-flex">
-				<!-- <view class="tn-flex-1 wallpaper-shadow tn-bg-white" style="margin: 50rpx 15rpx 0 0;padding: 30rpx 0;"
+				<view class="tn-flex-1 wallpaper-shadow tn-bg-white" style="margin: 50rpx 15rpx 0 0;padding: 30rpx 0;"
 					@click="tn('/pageB/edit/edit')">
-					<view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center"> -->
+					<view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
 						<!-- <view class="icon20__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-orangered tn-color-white">
               <view class="tn-icon-computer-fill"></view>
             </view> -->
-					<!-- 	<view class="icon5__item--icon tn-flex tn-flex-row-center tn-flex-col-center"
+						<view class="icon5__item--icon tn-flex tn-flex-row-center tn-flex-col-center"
 							style="background-image:url('https://cdn.nlark.com/yuque/0/2022/png/280373/1666764808285-assets/web-upload/b83d1b36-7355-4f36-bc02-9f06b8c0867c.png');background-size:100% 100%;background-size: cover;">
 						</view>
 						<view class="tn-text-center" style="font-size: 30rpx;">
 							<view class="tn-text-ellipsis">发布日签</view>
 						</view>
 					</view>
-				</view> -->
+				</view>
 				<!-- 发布日签结束 -->
 				<!-- ai创作开始 -->
-<!-- 				<view class="tn-flex-1 wallpaper-shadow tn-bg-white" style="margin: 50rpx 0 0 15rpx;padding: 30rpx 0;"
+				<view class="tn-flex-1 wallpaper-shadow tn-bg-white" style="margin: 50rpx 0 0 15rpx;padding: 30rpx 0;"
 					@click="tn('/pageA/create/create')">
-					<view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center"> -->
+					<view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
 						<!-- <view class="icon20__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-purplered tn-color-white">
               <view class="tn-icon-moon-fill"></view>
-            </view>  -->
-		<!-- 				<view class="icon5__item--icon tn-flex tn-flex-row-center tn-flex-col-center"
+            </view> -->
+						<view class="icon5__item--icon tn-flex tn-flex-row-center tn-flex-col-center"
 							style="background-image:url('https://cdn.nlark.com/yuque/0/2022/png/280373/1666764788528-assets/web-upload/955b13dd-7715-4627-b8cc-04ae3d85051a.png');background-size:100% 100%;background-size: cover;">
 						</view>
 						<view class="tn-text-center" style="font-size: 30rpx;">
 							<view class="tn-text-ellipsis">Ai 创作</view>
 						</view>
 					</view>
-				</view> -->
+				</view>
 				<!-- ai创作结束 -->
 			</view>
 

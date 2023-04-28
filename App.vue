@@ -4,6 +4,9 @@
   import updateCustomBarInfo from './tuniao-ui/libs/function/updateCustomBarInfo.js'
   
 	export default {
+		globalData: {
+			baseUrl: "http://localhost.picture_api.com/api/"
+		},
 		onLaunch: function() {
 			uni.getSystemInfo({
 			  success: function(e) {

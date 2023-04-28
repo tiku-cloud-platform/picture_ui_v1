@@ -24,9 +24,9 @@
         </view>
       </view>
       
-      <!-- <view class="tn-margin tn-bg-gray--light" style="border-radius: 10rpx;padding: 20rpx 30rpx;">
+      <view class="tn-margin tn-bg-gray--light" style="border-radius: 10rpx;padding: 20rpx 30rpx;">
       	<input placeholder="写下一句简短的标题" name="input" placeholder-style="color:#AAAAAA" ></input>
-      </view> -->
+      </view>
       <view class="tn-margin tn-bg-gray--light tn-padding" style="border-radius: 10rpx;display: none;">
         <textarea maxlength="300" placeholder="输入你的脑洞创意" placeholder-style="color:#AAAAAA" style="height: 100rpx;"></textarea>
       </view>
