@@ -26,10 +26,10 @@
 			</view>
 			
 			<view class="tn-margin tn-bg-gray--light" style="border-radius: 10rpx;padding: 20rpx 30rpx;">
-				<input placeholder="为该套壁纸写点什么呢" :value="imageText" name="input" @input="inputImageTitle" placeholder-style="color:#AAAAAA"></input>
+				<input placeholder="为该套壁纸 描述一个适合的名称吧" :value="imageText" name="input" @input="inputImageTitle" placeholder-style="color:#AAAAAA"></input>
 			</view>
 			<view class="tn-margin tn-bg-gray--light tn-padding" style="border-radius: 10rpx;">
-				<textarea maxlength="30" placeholder="为这套壁纸写一点描述吧,有利于用户了解你的作品" placeholder-style="color:#AAAAAA; width:100%;"
+				<textarea maxlength="30" placeholder="好的描述 有助于用户更方便的了解你的作品" @input="inputImageDesc" placeholder-style="color:#AAAAAA; width:100%;"
 					style="height: 60rpx;"></textarea>
 			</view>
 			<!-- 图片描述结束 -->
@@ -176,6 +176,14 @@
 					</view>
 				</view>
 			</view>
+			
+			<!-- 发布须知开始 -->
+			<view class="author-setting" @click="atuhorPublish">
+				<view class="">
+					<text class="tn-icon-safe-fill" style="font-size: 50rpx;color: red;"></text>
+				</view>
+			</view>
+			<!-- 发布须知结束 -->
 
 		</view>
 
@@ -186,8 +194,8 @@
 
 <script>
 	import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
-	import { checkAuthorAvatar } from "@/utils/api/author.js"
-	import { imageCategoryAll, imageSeriesAll } from "@/utils/api/image.js"
+	import { checkAuthorAvatar, publishWallPaper } from "@/utils/api/author.js"
+	import { imageCategoryAll, imageSeriesAll, } from "@/utils/api/image.js"
 	export default {
 		name: 'TemplateEdit',
 		mixins: [template_page_mixin],
@@ -212,6 +220,7 @@
 				isUpdate: 0,// 是否更新了用户头像信息
 				// 表单数据
 				imageText: "",// 图片专辑名称
+				imageDesc: "", // 图片专辑描述
 				fileList: [],// 相册图片集合
 				imageScore: 0.00, // 图片积分
 				imageCategoryUid: "", // 图片分类
@@ -228,13 +237,18 @@
 		},
 		methods: {
 			bindPickerChange1(e) {
-				console.log(e)
 				this.imageDevie = e.detail.value
 			},
 			// 获取壁纸分类
 			getImageCategory() {
 				imageCategoryAll({}).then(res => {
 					this.categoryList = res
+				})
+			},
+			// 发布须知
+			atuhorPublish() {
+				uni.navigateTo({
+					url: "/pageA/about/about?uid=493050725513824825"
 				})
 			},
 			// 获取壁纸系列
@@ -294,6 +308,9 @@
 			inputImageTitle(e) {
 				this.imageText = e.detail.value
 			},
+			inputImageDesc(e) {
+				this.imageDesc = e.detail.value
+			},
 			// 图片积分
 			inputImageScore(e) {
 				this.imageScore = e.detail.value
@@ -303,20 +320,41 @@
 				if (this.isUpdate > 0) {
 					let files = [];
 					let fileList = this.$refs.imageUpload.lists
-					console.log("文件长度", fileList)
 					for (let i = 0; i < fileList.length; i++) {
 						files[i] = fileList[i].data.response.data.url
 					}
 					if (files.length < 1) {
-						this.$$func.showToast("图片不能为空")
+						this.$func.showToast("图片不能为空")
 						return
 					}
-					console.log(this.imageText.length)
 					if (this.imageText == "" || this.imageText.length < 6 || this.imageText.length > 20) {
 						this.$func.showToast("名称6-20个字符")
 						return
 					}
-					console.log(this.imageText, files)
+					if (this.imageCategoryUid == "") {
+						this.$func.showToast("选择一个壁纸系列吧")
+						return
+					}
+					if (this.imageSeriesUid == "") {
+						this.$func.showToast("选择一个壁纸标签吧")
+						return
+					}
+					if (this.imageDesc == "") {
+						this.$func.showToast("写点描述吧")
+						return
+					}
+					let postParams = {
+						image_title: this.imageText,
+						image_list: JSON.stringify(files),
+						image_device: this.imageDevie,
+						image_score: this.imageScore,
+						image_desc: this.imageDesc,
+						image_series_uid: this.imageSeriesUid,
+						image_category_uid: this.imageCategoryUid,
+					}
+					publishWallPaper(postParams).then(res => {
+						console.log(res)
+					})
 				} else {
 					this.checkAuthorAvatar()
 				}
@@ -330,6 +368,14 @@
 </script>
 
 <style lang="scss" scoped>
+	// 发布须知开始
+	.author-setting {
+		position: fixed;
+		right: 20rpx;
+		bottom: 300rpx;
+		text-align: center;
+	}
+	// 发布须知结束
 	.template-edit {}
 
 	/* 胶囊*/
