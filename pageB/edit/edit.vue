@@ -50,9 +50,44 @@
 			</view>
 			
 			<view class="tn-margin tn-bg-gray--light" style="border-radius: 10rpx;padding: 20rpx 30rpx;">
-				<input placeholder="为该套壁纸写点什么呢" type="number" :value="imageScore" name="input" @input="inputImageScore" placeholder-style="color:#AAAAAA"></input>
+				<input placeholder="为该套壁纸写点什么呢" type="digit" :value="imageScore" name="input" @input="inputImageScore" placeholder-style="color:#AAAAAA"></input>
 			</view>
 			<!-- 图片积分结束 -->
+			
+			<!-- 壁纸类型开始 -->
+			<view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top tn-margin">
+				<view class="tn-flex justify-content-item">
+					<view class="tn-bg-black tn-color-white tn-text-center"
+						style="border-radius: 100rpx;margin-right: 8rpx;width: 45rpx;height: 45rpx;line-height: 45rpx;">
+						<text class="tn-icon-ticket" style="font-size: 30rpx;"></text>
+					</view>
+					<view class="tn-text-lg tn-padding-right-xs tn-text-bold">设备类型 *</view>
+				</view>
+				<view class="justify-content-item tn-text-df tn-color-grey">
+					<text class="tn-padding-xs">选择壁纸设备类型</text>
+					<text class="tn-icon-ticket"></text>
+				</view>
+			</view>
+			
+			<view class="tn-margin tn-bg-gray--light" style="border-radius: 10rpx;padding: 20rpx 30rpx;">
+				<!-- <input placeholder="为该套壁纸写点什么呢" type="number" :value="imageScore" name="input" @input="inputImageScore" placeholder-style="color:#AAAAAA"></input> -->
+				<picker @change="bindPickerChange1" :value="imageDevie" :range="array1">
+				  <view class="tn-flex tn-flex-row-between">
+				    <view class="justify-content-item">
+				      <view class="tn-text-bold tn-text-lg">
+				        类型
+				      </view>
+				      <view class="tn-color-gray tn-padding-top-xs">
+				        {{array1[imageDevie]}}
+				      </view>
+				    </view>
+				    <view class="justify-content-item tn-text-lg tn-color-grey">
+				      <view class="tn-icon-right tn-padding-top"></view>
+				    </view>
+				  </view>
+				</picker>
+			</view>
+			<!-- 壁纸类型结束 -->
 
 			<!-- 图片上传开始 -->
 			<view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-xl tn-margin">
@@ -63,9 +98,9 @@
 					</view>
 					<view class="tn-text-lg tn-padding-right-xs tn-text-bold">发点什么图咧 *</view>
 				</view>
-				<view class="justify-content-item tn-text-df tn-color-grey" @tap="clear">
-					<text class="tn-padding-xs">清空上传</text>
-					<text class="tn-icon-delete"></text>
+				<view class="justify-content-item tn-text-df tn-color-grey">
+					<text class="tn-padding-xs">可拖动排序哦</text>
+					<text class="tn-icon-baby"></text>
 				</view>
 			</view>
 
@@ -93,10 +128,10 @@
 			</view>
 
 			<view class="tn-tag-content tn-margin tn-text-justify">
-				<view v-for="(item, index) in tags" :key="index"
+				<view v-for="(item, index) in categoryList" :key="index"
 					class="tn-tag-content__item tn-margin-right tn-round tn-text-sm tn-text-bold"
 					:class="[item.select ? `tn-bg-${item.color}--light tn-color-${item.color}` : 'tn-bg-gray--light tn-color-gray--dark']"
-					@click="handleTagsClick(index)">
+					@click="handleTagsClick(1, index)">
 					<text :class="['tn-padding-right-xs tn-icon-' + item.icon]"></text> {{ item.title }}
 				</view>
 			</view>
@@ -118,10 +153,10 @@
 			</view>
 
 			<view class="tn-tag-content tn-margin tn-text-justify">
-				<view v-for="(item, index) in tags" :key="index"
+				<view v-for="(item, index) in seriesList" :key="index"
 					class="tn-tag-content__item tn-margin-right tn-round tn-text-sm tn-text-bold"
 					:class="[item.select ? `tn-bg-${item.color}--light tn-color-${item.color}` : 'tn-bg-gray--light tn-color-gray--dark']"
-					@click="handleTagsClick(index)">
+					@click="handleTagsClick(2, index)">
 					<text :class="['tn-padding-right-xs tn-icon-' + item.icon]"></text> {{ item.title }}
 				</view>
 			</view>
@@ -151,78 +186,16 @@
 
 <script>
 	import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
+	import { checkAuthorAvatar } from "@/utils/api/author.js"
+	import { imageCategoryAll, imageSeriesAll } from "@/utils/api/image.js"
 	export default {
 		name: 'TemplateEdit',
 		mixins: [template_page_mixin],
 		data() {
 			return {
-				tags: [{
-						icon: "topic",
-						title: "原神",
-						color: 'red',
-						select: false
-					},
-					{
-						icon: "topic",
-						title: "LOL",
-						color: 'cyan',
-						select: false
-					},
-					{
-						icon: "topic",
-						title: "图鸟",
-						color: 'blue',
-						select: false
-					},
-					{
-						icon: "topic",
-						title: "科技",
-						color: 'green',
-						select: false
-					},
-					{
-						icon: "topic",
-						title: "免费",
-						color: 'orange',
-						select: false
-					},
-					{
-						icon: "topic",
-						title: "前端",
-						color: 'purplered',
-						select: false
-					},
-					{
-						icon: "topic",
-						title: "后端",
-						color: 'purple',
-						select: false
-					},
-					{
-						icon: "topic",
-						title: "UI设计",
-						color: 'orangered',
-						select: false
-					},
-					{
-						icon: "topic",
-						title: "求助",
-						color: 'orangeyellow',
-						select: false
-					},
-					{
-						icon: "topic",
-						title: "吃货",
-						color: 'brown',
-						select: false
-					},
-					{
-						icon: "topic",
-						title: "萌宠",
-						color: 'grey',
-						select: false
-					}
-				],
+				array1: ['手机壁纸', '电脑壁纸', '平板壁纸'],
+				categoryList: [],
+				seriesList: [],
 				action: getApp().globalData.baseUrl + "file/author", //'https://www.hualigs.cn/api/upload',
 				formData: {},
 				header: {
@@ -236,18 +209,80 @@
 				customStyle: false,
 				maxCount: 9,
 				disabled: false,
+				isUpdate: 0,// 是否更新了用户头像信息
 				// 表单数据
 				imageText: "",// 图片专辑名称
 				fileList: [],// 相册图片集合
 				imageScore: 0.00, // 图片积分
+				imageCategoryUid: "", // 图片分类
+				imageSeriesUid: "", // 图片标签
+				imageDevie: 0, // 图片设备类型
 			}
 		},
 		onLoad() {
 		},
+		onShow() {
+			this.checkAuthorAvatar()
+			this.getImageCategory()
+			this.getImageSeries()
+		},
 		methods: {
+			bindPickerChange1(e) {
+				console.log(e)
+				this.imageDevie = e.detail.value
+			},
+			// 获取壁纸分类
+			getImageCategory() {
+				imageCategoryAll({}).then(res => {
+					this.categoryList = res
+				})
+			},
+			// 获取壁纸系列
+			getImageSeries() {
+				imageSeriesAll({}).then(res => {
+					this.seriesList = res
+				})
+			},
+			// 作者是否更新过头像和昵称
+			checkAuthorAvatar() {
+				checkAuthorAvatar().then(res => {
+					this.isUpdate = res.is_update
+					if (res.is_update < 1) {
+						uni.showModal({
+							title: '操作提示',
+							content: res.msg,
+							confirmText: "立即修改",
+							cancelText: "暂不修改",
+							success: function (res) {
+								if (res.confirm) {
+									uni.navigateTo({
+										url:"/pageA/set/set"
+									})
+								}
+							}
+						});
+					}
+				})
+			},
 			// 处理标签点击事件
-			handleTagsClick(index) {
-				this.tags[index].select = !this.tags[index].select
+			handleTagsClick(type, index) {
+				if (type == 1) {
+					this.imageCategoryUid = this.categoryList[index].uid
+					// 清除所有已选中的标签
+					for (var i = 0; i < this.categoryList.length; i++) {
+						this.categoryList[i].select = false
+					}
+					this.categoryList[index].select = !this.categoryList[index].select
+					return
+				}
+				if (type == 2) {
+					this.imageSeriesUid = this.seriesList[index].uid
+					// 清除已选中的所有标签
+					for (var i = 0; i < this.seriesList.length; i++) {
+						this.seriesList[i].select = false
+					}
+					this.seriesList[index].select = !this.seriesList[index].select
+				}
 			},
 			// 跳转
 			tn(e) {
@@ -265,26 +300,26 @@
 			},
 			// 提交表单
 			submit() {
-				let files = [];
-				let fileList = this.$refs.imageUpload.lists
-				console.log("文件长度", fileList)
-				for (let i = 0; i < fileList.length; i++) {
-					files[i] = fileList[i].data.response.data.url
+				if (this.isUpdate > 0) {
+					let files = [];
+					let fileList = this.$refs.imageUpload.lists
+					console.log("文件长度", fileList)
+					for (let i = 0; i < fileList.length; i++) {
+						files[i] = fileList[i].data.response.data.url
+					}
+					if (files.length < 1) {
+						this.$$func.showToast("图片不能为空")
+						return
+					}
+					console.log(this.imageText.length)
+					if (this.imageText == "" || this.imageText.length < 6 || this.imageText.length > 20) {
+						this.$func.showToast("名称6-20个字符")
+						return
+					}
+					console.log(this.imageText, files)
+				} else {
+					this.checkAuthorAvatar()
 				}
-				if (files.length < 1) {
-					this.$$func.showToast("图片不能为空")
-					return
-				}
-				console.log(this.imageText.length)
-				if (this.imageText == "" || this.imageText.length < 6 || this.imageText.length > 20) {
-					this.$func.showToast("名称6-20个字符")
-					return
-				}
-				console.log(this.imageText, files)
-			},
-			// 手动清空列表
-			clear() {
-				this.$refs.imageUpload.clear()
 			},
 			// 图片拖拽重新排序
 			onSortList(list) {

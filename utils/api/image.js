@@ -39,3 +39,20 @@ export function imageDownLoad(params) {
 		return res.data
 	})
 }
+
+
+export function imageCategoryAll(params) {
+	return request.get("img/category_all", {
+		params: params
+	}).then(res => {
+		return res.data
+	})
+}
+
+export function imageSeriesAll(params) {
+	return request.get("img/series_all", {
+		params: params
+	}).then(res => {
+		return res.data
+	})
+}

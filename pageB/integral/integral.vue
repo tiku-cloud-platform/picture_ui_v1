@@ -50,6 +50,8 @@
       }
     },
 		onLoad() {
+		},
+		onShow() {
 			this.getScoreHistory()
 		},
     methods: {
