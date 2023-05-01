@@ -94,7 +94,7 @@
 							style="background-image:url('https://cdn.nlark.com/yuque/0/2022/png/280373/1666764808285-assets/web-upload/b83d1b36-7355-4f36-bc02-9f06b8c0867c.png');background-size:100% 100%;background-size: cover;">
 						</view>
 						<view class="tn-text-center" style="font-size: 30rpx;">
-							<view class="tn-text-ellipsis">发布日签</view>
+							<view class="tn-text-ellipsis">发布 作品</view>
 						</view>
 					</view>
 				</view>
@@ -110,7 +110,7 @@
 							style="background-image:url('https://cdn.nlark.com/yuque/0/2022/png/280373/1666764788528-assets/web-upload/955b13dd-7715-4627-b8cc-04ae3d85051a.png');background-size:100% 100%;background-size: cover;">
 						</view>
 						<view class="tn-text-center" style="font-size: 30rpx;">
-							<view class="tn-text-ellipsis">Ai 创作</view>
+							<view class="tn-text-ellipsis">我的 创作</view>
 						</view>
 					</view>
 				</view>
@@ -309,15 +309,6 @@
 			}
 		},
 		created() {
-			this.getUsercaheInfo()
-		},
-		onShow() {
-			this.getUsercaheInfo()
-		},
-		onLoad() {
-			this.getUsercaheInfo()
-		},
-		mounted() {
 			this.getUsercaheInfo()
 		},
 		methods: {
