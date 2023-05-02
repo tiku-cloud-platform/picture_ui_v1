@@ -29,6 +29,13 @@ export default {
 			}
 		})
 	},
+	wxImagePreview: (imageUrl) => {
+		uni.previewImage({
+			urls: [imageUrl],
+			current: 0,
+			showmenu: false,
+		})
+	},
 	imagePreview: (imageUrl) => {
 		uni.previewImage({
 			urls: [imageUrl],

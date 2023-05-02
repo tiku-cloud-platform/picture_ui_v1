@@ -30,7 +30,7 @@
 	<swiper class="card-swiper" :circular="true"
       :autoplay="true" duration="500" interval="5000" @change="cardSwiper" > 
       <swiper-item v-for="(item,index) in swiperList" :key="index" :class="cardCur==index?'cur':''">
-        <view class="swiper-item image-banner" @click="$func.imagePreview(item.url + item.path)" :style="'background-image:url('+ item.url + item.path + ');background-size: cover;border-radius: 15rpx;background-repeat: no-repeat;'">
+        <view class="swiper-item image-banner" @click="$func.wxImagePreview(item.url + item.path)" :style="'background-image:url('+ item.url + item.path + ');background-size: cover;border-radius: 15rpx;background-repeat: no-repeat;'">
         </view>
       </swiper-item>
     </swiper>
