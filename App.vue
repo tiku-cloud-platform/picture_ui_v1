@@ -5,8 +5,7 @@
   
 	export default {
 		globalData: {
-			// baseUrl: "http://localhost.picture_api.com/api/",
-			baseUrl: "https://picture.qqdeveloper.com/api/",
+			baseUrl: "后端api地址",
 		},
 		onLaunch: function() {
 			uni.getSystemInfo({
