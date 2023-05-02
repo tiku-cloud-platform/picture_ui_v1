@@ -1,5 +1,5 @@
 <template>
-  <view class="nav-index-button" :style="{bottom: `${bottom}rpx`, right: `${right}rpx`}" @tap.stop="navIndex">
+  <view class="nav-index-button" :style="{bottom: `${bottom}rpx`, right: `${right}rpx`}" @click="navTop">
     <view class="nav-index-button__content">
         <view class="nav-index-button__content--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-cool-bg-color-5">
           <view class="tn-icon-home-fill"></view>
@@ -30,35 +30,14 @@
         type: [Number, String],
         default: 75
       },
-      // 首页地址
-      indexPath: {
-        type: String,
-        default: '/pages/index'
-      }
     },
     methods: {
-      // 跳转回首页
-      navIndex() {
-        // 通过判断当前页面的页面栈信息，是否有上一页进行返回，如果没有则跳转到首页
-        const pages = getCurrentPages()
-        if (pages && pages.length > 0) {
-          const indexPath = this.indexPath || '/pages/index'
-          const firstPage = pages[0]
-          if (pages.length == 1 && (!firstPage.route || firstPage.route != indexPath.substring(1, indexPath.length))) {
-            uni.reLaunch({
-              url: indexPath
-            })
-          } else {
-            uni.navigateBack({
-              delta: 1
-            })
-          }
-        } else {
-          uni.reLaunch({
-            url: indexPath
-          })
-        }
-      }
+      navTop() {
+				uni.pageScrollTo({
+					scrollTop: 0,
+					duration: 300
+				})
+			}
     }
   }
 </script>

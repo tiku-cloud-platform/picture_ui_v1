@@ -482,6 +482,34 @@
             this.uploadError(index, err)
           },
           complete: res => {
+						console.log(res)
+						let serverRes = JSON.parse(res.data)
+						if (serverRes.code == 100 && res.statusCode == 200) {
+							uni.showToast({
+								title: serverRes.msg,
+								icon: 'none',
+								mask: true
+							})
+						}
+						if (res.statusCode == 403) {
+							uni.navigateTo({
+								url:"/pageA/login/login"
+							})
+							return
+						}
+						if (res.statusCode == 401) {
+							uni.navigateTo({
+								url:"/pageA/login/login"
+							})
+							return
+						}
+						if (serverRes.code != 100) {
+							uni.showToast({
+								title: serverRes.msg,
+								icon: 'none',
+								mask: true
+							})
+						}
             this.$t.message.closeLoading()
             this.uploading = false
             this.uploadFile(index + 1)

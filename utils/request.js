@@ -1,8 +1,6 @@
 import Request from "luch-request"
 
-let baseUrl = "https://picture.qqdeveloper.com/api/"
-// let baseUrl = "http://localhost.picture_api.com/api/"
-
+let baseUrl = "后端api地址"
 const http = new Request({
 	baseURL: baseUrl,
 	timeout: 5000,
@@ -67,7 +65,7 @@ http.interceptors.response.use((response) => {
 	} else {
 		console.log(response)
 		uni.showToast({
-			title: "请求异常 刷新重试",
+			title: response.errMsg,
 			icon: "none",
 			duration: 3000,
 		})

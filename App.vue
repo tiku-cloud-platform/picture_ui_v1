@@ -4,6 +4,9 @@
   import updateCustomBarInfo from './tuniao-ui/libs/function/updateCustomBarInfo.js'
   
 	export default {
+		globalData: {
+			baseUrl: "后端api地址",
+		},
 		onLaunch: function() {
 			uni.getSystemInfo({
 			  success: function(e) {

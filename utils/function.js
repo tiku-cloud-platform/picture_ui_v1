@@ -29,10 +29,26 @@ export default {
 			}
 		})
 	},
+	wxImagePreview: (imageUrl) => {
+		uni.previewImage({
+			urls: [imageUrl],
+			current: 0,
+			showmenu: false,
+		})
+	},
 	imagePreview: (imageUrl) => {
 		uni.previewImage({
 			urls: [imageUrl],
 			current: 0,
+			longPressActions: {
+				itemList: ['发送给朋友', '保存图片', '收藏'],
+				success: function(data) {
+					console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
+				},
+				fail: function(err) {
+					console.log(err.errMsg);
+				}
+			}
 		})
 	},
 	showToast: (title, time = 3000) => {
@@ -40,6 +56,35 @@ export default {
 			title: title,
 			duration: time,
 			icon: "none"
+		})
+	},
+	msgSubscribe: (template) => {
+		uni.requestSubscribeMessage({
+			tmplIds: [template],
+			success(res) {
+				if (res.errMsg == 'requestSubscribeMessage:ok' && res[template] == 'accept') {
+					templateSubscribe({
+						template_id: template
+					}).then(res => {
+						uni.showToast({
+							icon: 'none',
+							title: res.msg
+						})
+					})
+					return
+				}
+				uni.showToast({
+					icon: 'none',
+					title: '请先订阅',
+				})
+			},
+			fail(res) {
+				uni.showToast({
+					title: '订阅失败',
+					icon: 'none',
+					duration: 3000
+				})
+			}
 		})
 	},
 	templateSubscribe: (template, url) => {

@@ -70,14 +70,14 @@
     
     
     <!--胶囊 banner 需要可用显示出来即可 start-->
-    <!-- <view class="tn-flex tn-flex-wrap tn-padding-bottom" @click="tn('')">
+    <view class="tn-flex tn-flex-wrap tn-padding-bottom" @click="tnMini('wxf3d81a452b88ff4b')">
       <view class="" style="width: 100%;">
-        <view class="image-piccapsule tn-shadow-blur" style="background-image:url('https://tnuiimage.tnkjapp.com/capsule-banner/banner-tnmb.png');">
+        <view class="image-piccapsule tn-shadow-blur" style="background-image:url('http://qiniucloud.qqdeveloper.com//a50671927a88484e3c24ea7c909d273b.png');">
            <view class="image-capsule">
            </view>
          </view>  
       </view>  
-    </view> -->
+    </view>
     <!-- banner end-->
     
     
@@ -104,7 +104,7 @@
                       <view class="tn-flex tn-flex-col-center tn-flex-row-left">
                         <view class="logo-pic">
                           <view class="logo-image">
-                            <view class="" :style="'background-image:url('+ item.author.qr_url +');width: 40rpx;height: 40rpx;background-size: cover;'">
+                            <view class="" :style="'background-image:url('+ item.user.avatar_url +');width: 40rpx;height: 40rpx;background-size: cover;'">
                             </view>
                           </view>
                         </view>
@@ -125,7 +125,7 @@
               </view>
             </template>
             <template v-slot:right="{ rightList }">
-              <!-- <view class="tn-color-black tn-text-bold tn-bg-yellow home-shadow" style="height: 160rpx;margin: 0 10rpx 20rpx 10rpx;border-radius: 10rpx;" @click="tn('/pageB/activity/activity')">
+              <view class="tn-color-black tn-text-bold tn-bg-yellow home-shadow" style="height: 160rpx;margin: 0 10rpx 20rpx 10rpx;border-radius: 10rpx;" @click="tn('/pageB/activity/activity')">
                 <view class="tn-padding-left tn-padding-top-lg">
                   Ai · 广场
                 </view>
@@ -133,7 +133,7 @@
                   晒出你的ai创作
                   <text class="tn-icon-right tn-padding-left-xs"></text>
                 </view>
-              </view> -->
+              </view>
               <view v-for="(item, index) in rightList" :key="item.uid" class="wallpaper__item" @click="tn('/pageA/details/details?image_uid=' + item.uid)">
                 <view class="item__image">
                   <tn-lazy-load :threshold="6000" height="100%" :image="item.url + item.path" :index="item.uid" imgMode="widthFix"></tn-lazy-load>
@@ -150,7 +150,7 @@
                       <view class="tn-flex tn-flex-col-center tn-flex-row-left">
                         <view class="logo-pic">
                           <view class="logo-image">
-                            <view class="" :style="'background-image:url('+ item.author.qr_url +');width: 40rpx;height: 40rpx;background-size: cover;'">
+                            <view class="" :style="'background-image:url('+ item.user.avatar_url +');width: 40rpx;height: 40rpx;background-size: cover;'">
                             </view>
                           </view>
                         </view>
@@ -233,6 +233,14 @@
 			this.getImageList()
     },
     methods: {
+			tnMini(appId) {
+				uni.navigateToMiniProgram({
+					appId: appId,
+					fail(res) {
+						this.$func.showToast('跳转失败 刷新重试')
+					}
+				})
+			},
 			clickBanner(index) {
 				if (this.bannerList[index].navigate != '') {
 					uni.navigateTo({
@@ -256,10 +264,6 @@
 			},
 			menuTn(url, index) {
 				if (this.menuList[index].state == 1) {
-					if (this.menuList[index].navigate == 'gif') {
-						this.$parent.changeTabbar(1)
-						return
-					}
 					uni.navigateTo({
 						url: this.menuList[index].navigate
 					})

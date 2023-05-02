@@ -82,6 +82,7 @@
 
 
 			<!-- 方式20 start-->
+			<!-- 发布日签开始 -->
 			<view class="tn-flex">
 				<view class="tn-flex-1 wallpaper-shadow tn-bg-white" style="margin: 50rpx 15rpx 0 0;padding: 30rpx 0;"
 					@click="tn('/pageB/edit/edit')">
@@ -93,24 +94,27 @@
 							style="background-image:url('https://cdn.nlark.com/yuque/0/2022/png/280373/1666764808285-assets/web-upload/b83d1b36-7355-4f36-bc02-9f06b8c0867c.png');background-size:100% 100%;background-size: cover;">
 						</view>
 						<view class="tn-text-center" style="font-size: 30rpx;">
-							<view class="tn-text-ellipsis">发布日签</view>
+							<view class="tn-text-ellipsis">发布 作品</view>
 						</view>
 					</view>
 				</view>
+				<!-- 发布日签结束 -->
+				<!-- ai创作开始 -->
 				<view class="tn-flex-1 wallpaper-shadow tn-bg-white" style="margin: 50rpx 0 0 15rpx;padding: 30rpx 0;"
 					@click="tn('/pageA/create/create')">
 					<view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
 						<!-- <view class="icon20__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur tn-bg-purplered tn-color-white">
               <view class="tn-icon-moon-fill"></view>
-            </view>  -->
+            </view> -->
 						<view class="icon5__item--icon tn-flex tn-flex-row-center tn-flex-col-center"
 							style="background-image:url('https://cdn.nlark.com/yuque/0/2022/png/280373/1666764788528-assets/web-upload/955b13dd-7715-4627-b8cc-04ae3d85051a.png');background-size:100% 100%;background-size: cover;">
 						</view>
 						<view class="tn-text-center" style="font-size: 30rpx;">
-							<view class="tn-text-ellipsis">Ai 创作</view>
+							<view class="tn-text-ellipsis">我的 创作</view>
 						</view>
 					</view>
 				</view>
+				<!-- ai创作结束 -->
 			</view>
 
 			<!-- 更多信息-->
@@ -215,13 +219,13 @@
 			<!-- 更多信息-->
 			<view class="wallpaper-shadow tn-margin-top-lg tn-padding-top-sm tn-padding-bottom-sm">
 				<tn-list-cell :hover="true" :unlined="true" :radius="true" :fontSize="30"
-					@click="tn('/pageA/about/about')">
+					@click="tn('/pageA/about/about?uid=488692652187848334')">
 					<view class="tn-flex tn-flex-col-center">
 						<view class="icon1__item--icon tn-flex tn-flex-row-center tn-flex-col-center"
 							style="color: #7C8191;">
 							<view class="tn-icon-science-fill"></view>
 						</view>
-						<view class="tn-margin-left-sm tn-flex-1">关于图鸟</view>
+						<view class="tn-margin-left-sm tn-flex-1">关于兔兔</view>
 						<view class="tn-color-gray tn-icon-right"></view>
 					</view>
 				</tn-list-cell>
@@ -305,15 +309,6 @@
 			}
 		},
 		created() {
-			this.getUsercaheInfo()
-		},
-		onShow() {
-			this.getUsercaheInfo()
-		},
-		onLoad() {
-			this.getUsercaheInfo()
-		},
-		mounted() {
 			this.getUsercaheInfo()
 		},
 		methods: {

@@ -23,14 +23,14 @@
     
     
     <!-- 页面内容 -->
-	<view class="slideshow">
+	<!-- <view class="slideshow">
 		<template v-for="(item, index) in swiperList">
 			<view class="slideshow-image"  @click="imagePreview(index)" :style="'background-image:url('+ item.url + item.path + ');'"></view>
-		</template>	</view>
-	<!-- <swiper class="card-swiper" :circular="true"
-      :autoplay="true" duration="500" interval="12000" @change="cardSwiper" > 
+		</template>	</view> -->
+	<swiper class="card-swiper" :circular="true"
+      :autoplay="true" duration="500" interval="5000" @change="cardSwiper" > 
       <swiper-item v-for="(item,index) in swiperList" :key="index" :class="cardCur==index?'cur':''">
-        <view class="swiper-item image-banner" @click="$func.imagePreview(item.url + item.path)" :style="'background-image:url('+ item.url + item.path + ');background-size: cover;border-radius: 15rpx;background-repeat: no-repeat;'">
+        <view class="swiper-item image-banner" @click="$func.wxImagePreview(item.url + item.path)" :style="'background-image:url('+ item.url + item.path + ');background-size: cover;border-radius: 15rpx;background-repeat: no-repeat;'">
         </view>
       </swiper-item>
     </swiper>
@@ -38,7 +38,7 @@
         <block v-for="(item,index) in swiperList" :key="index">
             <view class="spot" :class="cardCur==index?'active':''"></view>
         </block>
-    </view> -->
+    </view>
     
     
     <!-- 底部tabbar start-->
@@ -51,7 +51,7 @@
         </view>
         <view class="">收藏</view>
       </view>
-      <view class="action" @click="downloadImageHandle">
+      <view class="action" @click="downloadImage">
         <view class="bar-icon">
           <view class="tn-icon-download">
           </view>
@@ -90,7 +90,7 @@
             <view class="">
               <view class="logo-pic tn-shadow">
                 <view class="logo-image">
-					<view class="tn-shadow-blur" :style="'background-image:url('+ swiperList[0].author.qr_url +');width: 100rpx;height: 100rpx;background-size: cover;'">
+					<view class="tn-shadow-blur" :style="'background-image:url('+ swiperList[0].user.avatar_url +');width: 100rpx;height: 100rpx;background-size: cover;'">
                   </view>
                 </view>
               </view>
@@ -103,9 +103,9 @@
                   <text class="tn-padding-left-sm tn-padding-right-xs">水瓶座</text>
                   <text class="tn-icon-con-virgo"></text>
                 </view>
-                <view class="justify-content-item tn-round tn-text-xs tn-bg-orangered--light tn-color-orangered" style="padding: 5rpx 15rpx;">
+                <!-- <view class="justify-content-item tn-round tn-text-xs tn-bg-orangered--light tn-color-orangered" style="padding: 5rpx 15rpx;">
                   <text class="tn-icon-warning-fill tn-padding-right-xs"></text> 举报
-                </view>
+                </view> -->
               </view>
               <view class="tn-padding-top-xs">
                 <view class="">
@@ -151,6 +151,30 @@
 			getImageItemList() {
 				imageItemList({image_uid: this.image_uid}).then(res => {
 					this.swiperList = res.items
+					setTimeout(function() {
+						// 在页面中定义激励视频广告
+						let videoAd = null
+						// 在页面onLoad回调事件中创建激励视频广告实例
+						if (wx.createRewardedVideoAd) {
+						  videoAd = wx.createRewardedVideoAd({
+						    adUnitId: 'adunit-4b17d1d83829ce16'
+						  })
+						  videoAd.onLoad(() => {})
+						  videoAd.onError((err) => {})
+						  videoAd.onClose((res) => {})
+						}
+						// 用户触发广告后，显示激励视频广告
+						if (videoAd) {
+						  videoAd.show().catch(() => {
+						    // 失败重试
+						    videoAd.load()
+						      .then(() => videoAd.show())
+						      .catch(err => {
+						        console.log('激励视频 广告显示失败')
+						      })
+						  })
+						}
+					}, 2000)
 				})
 			},
       // 跳转
@@ -159,30 +183,30 @@
           url: e,
         })
       },
-			imagePreview(index) {
-				this.cardCur = index
-				this.downloadImageHandle()
-			},
-			downloadImageHandle() {
-				let _that = this
-				let cache = uni.getStorageSync('downloadimage')
-				if (!cache) {
-					uni.showModal({
-						title: '下载提示',
-						content: '默认下载第一张，下载指定图片，请点击对应的图片',
-						confirmText: '知道了',
-						cancelText: '关闭',
-						success(res) {
-							if (res.confirm) {// 点击确认
-								uni.setStorageSync('downloadimage', 1)
-							}
-							_that.downloadImage()
-						}
-					})
-				} else {
-					this.downloadImage()
-				}
-			},
+			// imagePreview(index) {
+			// 	this.cardCur = index
+			// 	this.downloadImageHandle()
+			// },
+			// downloadImageHandle() {
+			// 	let _that = this
+			// 	let cache = uni.getStorageSync('downloadimage')
+			// 	if (!cache) {
+			// 		uni.showModal({
+			// 			title: '下载提示',
+			// 			content: '默认下载第一张，下载指定图片，请点击对应的图片',
+			// 			confirmText: '知道了',
+			// 			cancelText: '关闭',
+			// 			success(res) {
+			// 				if (res.confirm) {// 点击确认
+			// 					uni.setStorageSync('downloadimage', 1)
+			// 				}
+			// 				_that.downloadImage()
+			// 			}
+			// 		})
+			// 	} else {
+			// 		this.downloadImage()
+			// 	}
+			// },
       downloadImage() {
 				imageDownLoad({image_uid: this.swiperList[this.cardCur].uid}).then(res => {
 					if (res.code == 1) {
@@ -192,7 +216,6 @@
 					this.$func.showToast(res.msg)
 				})
 			},
-      // cardSwiper
       cardSwiper(e) {
         this.cardCur = e.detail.current
       },

@@ -17,8 +17,8 @@
 				<view class="nav_title tn-cool-bg-color-15">{{ item.title}}</view>
 			</view>
 			<view class='nav-list'>
-				<block v-for="(content_item, content_index) in item.list" :key="content_index">
-					<view hover-class='none' @click="clickMenu(content_index)"
+				<block v-for="(content_item, content_index) in item.children" :key="content_index">
+					<view hover-class='none' @click="clickMenu(content_item)"
 						class="nav-list-item tn-shadow-blur tn-cool-bg-image tn-flex tn-flex-col-center tn-flex-row-between" :class="[
               getRandomCoolBg(content_index)
             ]">
@@ -26,7 +26,7 @@
 							<view class='title'>{{ content_item.title }}</view>
 						</view>
 						<view class="icon">
-							<view style="width: 100%; height: 100%;"><image :src="content_item.url + content_item.path" style="width: 100%; height: 100%;"></image></view>
+							<view style="width: 100%; height: 100%;"><image :src="content_item.url + content_item.path" style="width: 100%; height: 100%; border-radius: 50%;"></image></view>
 						</view>
 					</view>
 				</block>
@@ -39,57 +39,34 @@
 </template>
 
 <script>
-	import { seriesList } from '@/utils/api/image'
+	import { categoryList } from '@/utils/api/source'
 	import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
 	export default {
-		name: 'ImageCategory',
+		name: 'SiteCategory',
 		mixins: [template_page_mixin],
 		data() {
 			return {
-				navList: [{
-					title: '壁纸系列',
-					backgroundColor: 'tn-cool-bg-color-1',
-					list: []
-				}]
+				navList: [],
+				searchWhere: {
+					page: 1,
+					size: 20
+				},
 			}
 		},
 		created() {
-			this.getImageSeriesList()
+			this.categoryList()
 		},
 		methods: {
-			clickMenu(index) {
+			clickMenu(obj) {
 				uni.navigateTo({
-					url: '/pageB/wallpaper/wallpaper?params=' + JSON.stringify(this.navList[0].list[index])
+					url: '/pageA/site/list?params=' + JSON.stringify(obj)
 				})
 			},
-			getImageSeriesList() {
-				seriesList().then(res => {
-					this.navList[0].list = res.items
+			categoryList() {
+				categoryList(this.searchWhere).then(res => {
+					this.navList.push(...res.items)
+					this.searchWhere.page = res.page + 1
 				})
-				setTimeout(function() {
-					// 在页面中定义激励视频广告
-					let videoAd = null
-					// 在页面onLoad回调事件中创建激励视频广告实例
-					if (wx.createRewardedVideoAd) {
-					  videoAd = wx.createRewardedVideoAd({
-					    adUnitId: 'adunit-a98fc233e3bc58e1'
-					  })
-					  videoAd.onLoad(() => {})
-					  videoAd.onError((err) => {})
-					  videoAd.onClose((res) => {})
-					}
-					// 用户触发广告后，显示激励视频广告
-					if (videoAd) {
-					  videoAd.show().catch(() => {
-					    // 失败重试
-					    videoAd.load()
-					      .then(() => videoAd.show())
-					      .catch(err => {
-					        console.log('激励视频 广告显示失败')
-					      })
-					  })
-					}
-				}, 1000)
 			},
 			getRandomCoolBg() {
 				let color = [
@@ -117,6 +94,9 @@
 				const colorValue = color[index]
 				return 'tn-bg' + '-' + colorValue
 			}
+		},
+		onReachBottom() {
+			this.categoryList()
 		}
 	}
 </script>

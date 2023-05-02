@@ -14,17 +14,18 @@
     
     <view class="" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
       <view class="tn-padding-bottom-lg">
-        <view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding" v-for="(item,index) in integral" :key="index" >
+        <view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding" v-for="(item,index) in scoreHistory" :key="index" >
           <view class="justify-content-item">
             <view class="tn-color-gray--dark tn-text-lg">
-             {{item.name}}
+             {{item.title}}
             </view>
             <view class="tn-color-gray tn-padding-top-xs">
-              {{item.time}}
+              {{item.in_time}}
             </view>
           </view>
           <view class="justify-content-item tn-text-xl tn-padding-top">
-            <view :class="'tn-color-' + item.color + ';'"> {{item.integral}} </view>
+            <view class="tn-color-orange" v-if="item.type == 2"> {{`-` + item.score}} </view>
+            <view class="tn-color-blue" v-if="item.type == 1"> {{`+` + item.score}} </view>
           </view>
         </view>
       
@@ -35,82 +36,39 @@
 
 <script>
   import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
+	import { userScoreHistoryList } from "@/utils/api/user.js"
   export default {
     name: 'TemplateIntegral',
     mixins: [template_page_mixin],
     data(){
       return {
-        integral: [{
-          name: '完成手机号绑定',
-          time: '2022-12-22 08:02:21',
-          color: 'blue',
-          integral: '+100'
-        }, {
-          name: 'Ai创作成功',
-          time: '2022-12-18 20:21:36',
-          color: 'orange',
-          integral: '-5'
-        }, {
-          name: 'Ai创作成功',
-          time: '2022-12-18 20:18:38',
-          color: 'orange',
-          integral: '-5'
-        }, {
-          name: 'Ai创作成功',
-          time: '2022-12-18 20:16:59',
-          color: 'orange',
-          integral: '-5'
-        }, {
-          name: 'Ai创作成功',
-          time: '2022-12-18 20:15:08',
-          color: 'orange',
-          integral: '-5'
-        }, {
-          name: 'Ai创作成功',
-          time: '2022-12-18 20:13:50',
-          color: 'orange',
-          integral: '-5'
-        }, {
-          name: 'Ai创作成功',
-          time: '2022-12-18 20:13:02',
-          color: 'orange',
-          integral: '-5'
-        }, {
-          name: 'Ai创作成功',
-          time: '2022-12-18 20:12:36',
-          color: 'orange',
-          integral: '-5'
-        }, {
-          name: '完善个人头像',
-          time: '2022-12-16 12:14:43',
-          color: 'blue',
-          integral: '+50'
-        }, {
-          name: '完善职业',
-          time: '2022-05-15 10:21:08',
-          color: 'blue',
-          integral: '+50'
-        }, {
-          name: '完善生日',
-          time: '2022-12-14 08:56:32',
-          color: 'blue',
-          integral: '+50'
-        }, {
-          name: '完善个人姓名',
-          time: '2022-12-13 08:40:57',
-          color: 'blue',
-          integral: '+10'
-        }, {
-          name: '授权登录',
-          time: '2022-12-06 22:06:36',
-          color: 'blue',
-          integral: '+100'
-        }],
+        scoreHistory: [],
+				searchWhere: {
+					page: 1,
+					size: 20,
+				},
       }
     },
+		onLoad() {
+		},
+		onShow() {
+			this.getScoreHistory()
+		},
     methods: {
-      
-    }
+      getScoreHistory() {
+				userScoreHistoryList(this.searchWhere).then(res => {
+					if (res.items.length > 0) {
+						this.scoreHistory.push(...res.items)
+					} else {
+						this.$func.showToast("无更多积分记录")
+					}
+					this.searchWhere.page = res.page + 1
+				})
+			}
+    },
+		onReachBottom() {
+			this.getScoreHistory()
+		}
   }
 </script>
 

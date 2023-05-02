@@ -2,11 +2,11 @@
   "easycom": {
     "^tn-(.*)": "@/tuniao-ui/components/tn-$1/tn-$1.vue"
   },
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "图鸟壁纸"
+				"navigationBarTitleText": "🐇兔兔找图🐇"
 			}
 		}
 	],
@@ -20,6 +20,24 @@
           	"navigationBarTitleText": "搜索"
           }
         },
+				{
+				  "path": "site/category",
+				  "style": {
+				  	"navigationBarTitleText": "站点导航"
+				  }
+				},
+				{
+				  "path": "site/list",
+				  "style": {
+				  	"navigationBarTitleText": "站点导航"
+				  }
+				},
+				{
+				  "path": "site/link",
+				  "style": {
+				  	"navigationBarTitleText": "站点友链"
+				  }
+				},
 				{
 				  "path": "image/category",
 				  "style": {
@@ -39,9 +57,15 @@
 				  }
 				},
 				{
-				  "path": "emo/list",
+				  "path": "emo/detail",
 				  "style": {
 				  	"navigationBarTitleText": "表情包列表"
+				  }
+				},
+				{
+				  "path": "emo/list",
+				  "style": {
+				  	"navigationBarTitleText": "斗图大全"
 				  }
 				},
         {
@@ -107,18 +131,6 @@
           "path": "wallpaper/wallpaper",
           "style": {
           	"navigationBarTitleText": "壁纸"
-          }
-        },
-        {
-          "path": "chat/chat",
-          "style": {
-          	"navigationBarTitleText": "聊天"
-          }
-        },
-        {
-          "path": "chat/chatGPT",
-          "style": {
-          	"navigationBarTitleText": "智能助手"
           }
         },
         {

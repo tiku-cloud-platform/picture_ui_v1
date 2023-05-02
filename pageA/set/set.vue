@@ -215,9 +215,13 @@
 			},
 			updateUserInfo() {
 				updateUserInfo(this.userInfo).then(res => {
-					uni.setStorageSync("login", res.token)
 					uni.setStorageSync("userinfo", res.user)
-					this.$func.showToast("信息更新成功")
+						if (res.row) {
+							this.$func.showToast("信息更新成功")
+							uni.navigateBack()
+						} else {
+							this.$func.showToast("更新失败")
+						}
 				})
 			},
       // 跳转
