@@ -482,6 +482,7 @@
             this.uploadError(index, err)
           },
           complete: res => {
+						console.log(res)
 						let serverRes = JSON.parse(res.data)
 						if (serverRes.code == 100 && res.statusCode == 200) {
 							uni.showToast({
@@ -491,6 +492,12 @@
 							})
 						}
 						if (res.statusCode == 403) {
+							uni.navigateTo({
+								url:"/pageA/login/login"
+							})
+							return
+						}
+						if (res.statusCode == 401) {
 							uni.navigateTo({
 								url:"/pageA/login/login"
 							})

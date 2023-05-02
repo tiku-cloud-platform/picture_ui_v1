@@ -380,6 +380,7 @@
 							this.$refs.imageUpload.clear(),
 								uni.hideLoading()
 							this.$func.showToast(res.msg)
+							this.$func.msgSubscribe("LAw9ieqnjjvKhTA8q8_kuL-stSYtTSA6qA_JW5YDFf4")
 						} else {
 							this.$func.showToast(res.msg)
 						}
